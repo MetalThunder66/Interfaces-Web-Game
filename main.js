@@ -14,7 +14,7 @@ setInterval(gameLoop, 50);
 
 
 /* cada 1 segundo genera un enemigo */
-setInterval(generarEnemigo, 1000);
+setInterval(generarEnemigo, 1500);
 
 
 

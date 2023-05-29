@@ -29,7 +29,7 @@ class Runner extends Personaje {
     }
     caer() {
         this.clean();
-        this.personaje.classList.add("caer");
+        this.personaje.classList.add("correr");
 
         this.personaje.addEventListener("animationend", () => {
             this.correr();
@@ -42,7 +42,7 @@ class Runner extends Personaje {
     clean() {
         this.personaje.classList.remove("correr"); 
         this.personaje.classList.remove("saltar");
-        this.personaje.classList.remove("caer"); 
+        //this.personaje.classList.remove("caer"); 
         this.personaje.removeEventListener("animationend", () => {}); 
     }
 }
