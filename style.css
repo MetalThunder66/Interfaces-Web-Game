@@ -47,7 +47,7 @@ body {
     background: url('images/background/3.png') repeat-x;
     background-size: 1500px 359px;
     z-index: -4;
-    animation: paralax 28s linear infinite;
+    animation: paralax 30s linear infinite;
     top: 24%;
 }
 
@@ -64,7 +64,7 @@ body {
     background: url('images/background/1.png') repeat-x;
     background-size: 1500px 259px;
     z-index: -2;
-    animation: paralax 7s linear infinite;
+    animation: paralax 10s linear infinite;
     top: 49%;
 }
 
@@ -91,7 +91,7 @@ body {
 #personaje {
     position: absolute;
     width: 570px;
-    height: 755px;
+    height: 740px;
     z-index: 1;
     bottom: -125px;
     left: -150px;
@@ -162,6 +162,6 @@ body {
     }
 
     to {
-        left: -10%;
+        left: -12%;
     }
 }

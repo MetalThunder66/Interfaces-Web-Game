@@ -6,7 +6,7 @@ class Runner extends Personaje {
     }
 
     status() {
-        this.personaje.getBoundingClientRect();
+        return this.personaje.getBoundingClientRect(); 
     }
 
     correr() {

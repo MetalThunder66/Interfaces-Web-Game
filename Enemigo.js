@@ -12,6 +12,6 @@ class Enemigo extends Personaje {
     }
 
     status() {
-        super.status();
+        return this.personaje.getBoundingClientRect(); 
     }
 }
