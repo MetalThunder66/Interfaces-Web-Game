@@ -55,7 +55,7 @@ body {
     background: url('images/background/2.png') repeat-x;
     background-size: 1500px 478px;
     z-index: -3;
-    animation: paralax 18s linear infinite;
+    animation: paralax 20s linear infinite;
     top: 30%;
 }
 
@@ -64,7 +64,7 @@ body {
     background: url('images/background/1.png') repeat-x;
     background-size: 1500px 259px;
     z-index: -2;
-    animation: paralax 10s linear infinite;
+    animation: paralax 12s linear infinite;
     top: 49%;
 }
 
@@ -72,7 +72,7 @@ body {
     height: 30%;
     background: url("images/background/piso.png") repeat-x;
     background-size: 1500px 283px;
-    animation: paralax 4s linear infinite;
+    animation: paralax 5s linear infinite;
     position: absolute;
     bottom: -60px;
     z-index: 0;
@@ -88,16 +88,6 @@ body {
     }
 }
 
-#personaje {
-    position: absolute;
-    width: 570px;
-    height: 740px;
-    z-index: 1;
-    bottom: -125px;
-    left: -150px;
-    transform: scale(.4);
-}
-
 .correr {
     background: url("images/character/01_run_01start/run.png") repeat-x;
     animation: correr .5s steps(25) infinite;
@@ -110,7 +100,7 @@ body {
 
 .caer {
     background: url("images/character/02_jump_02finish/jump-finish.png") repeat-x;
-    animation: caer .4s steps(11) forwards;
+    animation: caer .5s steps(11) forwards;
 }
  
 @keyframes correr {
@@ -126,7 +116,7 @@ body {
 @keyframes saltar {
     0% {
         background-position: 0;
-        bottom: -90px;
+        bottom: -110px;
     }
 
     100% {
@@ -143,25 +133,39 @@ body {
 
     100% {
         background-position: -8899px;
-        bottom: -90px;
+        bottom: -110px;
     }
 } 
 
-.enemigo {
+/*#enemigo {
     position: absolute;
-    bottom: 10%;
-    width: 128px;
-    height: 92px;
-    background-color: rgb(141, 129, 129);
-    animation: enemigo 2.5s forwards linear;
+    bottom: -218px;
+    
+}*/
+
+.skeleton{
+    background: url("images/enemies/skeleton.png") repeat-x;
+    animation: movimiento-pantalla 20s forwards, animacion-sprite .20s steps(13) infinite; /*par el enemigo uso 2 animaciones, una para el movimiento y otra para el sprite */  
 }
 
-@keyframes enemigo {
-    from {
-        left: 100%;
+@keyframes movimiento-pantalla {
+    0% {
+      left: 100vw; /* Posición inicial en el lado derecho */
+    }
+  
+    100% {
+      left: -150vw; /* Posición final en el lado izquierdo */
+    }
+  }
+
+@keyframes animacion-sprite {
+    0% {
+        background-position: 0;
+        
     }
 
-    to {
-        left: -12%;
+    100% {
+        background-position: -15795px;
     }
 }
+

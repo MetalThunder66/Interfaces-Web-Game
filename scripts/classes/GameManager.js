@@ -1,4 +1,7 @@
-class GameManager {
+import { Skeleton } from "./enemigos/Skeleton.js";
+import { Runner } from "./Runner.js";
+
+export class GameManager {
     constructor() {
         if (GameManager.instance) {
             return GameManager.instance;
@@ -14,7 +17,7 @@ class GameManager {
 
     render() {
         this.runner = new Runner();
-        setInterval(this.generarEnemigo, 1500);
+        setInterval(this.generarEnemigo, 2500);
     }
 
     update() {
@@ -22,7 +25,7 @@ class GameManager {
     }
 
     generarEnemigo() {
-        let enemigo = new Enemigo();
+        let enemigo = new Skeleton();
     }
 
     inputListener(){
@@ -45,7 +48,7 @@ class GameManager {
         runnerStatus = this.runner.status();
     
         let enemigo;
-        enemigo = document.querySelector('.enemigo').getBoundingClientRect();
+        enemigo = document.getElementById('enemigo').getBoundingClientRect();
         console.log(enemigo)
         if (!(runnerStatus.right < enemigo.left ||
             runnerStatus.left > enemigo.right ||
@@ -55,13 +58,6 @@ class GameManager {
             }
     
     };
-
-    
-
-    
-
-
-
     // Otros métodos y propiedades del GameManager
 }
 
