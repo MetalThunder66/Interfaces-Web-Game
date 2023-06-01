@@ -28,7 +28,7 @@ export class ObjectPool { //pool de objetos powerups y enemigos para economizar 
         if (this.pool.length > 0) { // Si hay objetos disponibles en el pool, tomo uno
             
             const INDICE_ALEATORIO = Math.floor(Math.random() * this.pool.length); //genero un indice aleatorio
-            console.log(INDICE_ALEATORIO)
+
             let elemento = this.pool[INDICE_ALEATORIO];
 
             this.pool.splice(INDICE_ALEATORIO, 1); //borro el elemento

@@ -14,9 +14,6 @@ export class GameObject {
         this.gameElementDiv = document.createElement("div");    //crea un elemento div por cada gameObject pero todavia no lo inserta
 
         this.gameElementDiv.dataset.number = GameObject.cantidadObjetos; //el data set llevara el numero de div del objeto
-
-        console.log(this.gameElementDiv)
-
     }
 
     status() {
@@ -27,7 +24,7 @@ export class GameObject {
         return this.type;
     }
 
-    getIsActive() {     //retorna si el objeto aun es visible en la pantalla o no
+    getIsActive() {     //retorna si el objeto se encuentra en el DOM o no
         return this.isActive;
     }
 
@@ -37,7 +34,7 @@ export class GameObject {
 
     spawn() {
         document.getElementById("contenedor").appendChild(this.gameElementDiv);
-        this.isInDOM = true; //convierto en true ya que ya aparecio en pantalla
+        this.isActive = true; //convierto en true ya que ya aparecio en pantalla
         //en items si quiero posicion random ponerlo aca, en su respectivo powerup
 
         let removeFromDOM = (e) =>{
@@ -46,8 +43,8 @@ export class GameObject {
             //verifica por las dudas para prevenir errores
             if (DIV_A_BORRAR) {
                 //elimina el div
-                DIV_A_BORRAR.remove();
-                this.isInDOM = false;
+                this.gameElementDiv.remove();
+                this.isActive = false;
             }    
             
             this.gameElementDiv.removeEventListener("animationend", removeFromDOM); //lo elimina del DOM y cierra el listener
@@ -58,7 +55,7 @@ export class GameObject {
 
     
 
-    effect(personaje) {
+    effect(runner) {
         return; //Abstracto// Realiza una accion sobre el jugador dependiendo del objeto, sea enemigo o powerup
     }
 

@@ -9,15 +9,22 @@ export class Skeleton extends GameObject {
         this.gameElementDiv.id = "enemigo";
 
         this.gameElementDiv.classList.add("skeleton");
-        
-        //document.getElementById("contenedor").appendChild(this.enemigo);
+
     }
 
     status() {
-        return this.enemigo.getBoundingClientRect(); 
+        return this.gameElementDiv.getBoundingClientRect(); 
     }
     
-    effect(personaje) {
-        return; 
+    effect(runner) {
+        if (!runner.getInvisiviltyStatus()) {     //si no tiene invisivilidad, el runner recibe danio
+            runner.damaged();     //el skeleton explota y lo borra del dom
+            //this.gameElementDiv.classList.add('explosion');
+                
+            this.isActive = false;
+           
+            this.gameElementDiv.remove();
+            
+        } 
     }
 }
