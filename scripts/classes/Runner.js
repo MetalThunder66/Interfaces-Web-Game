@@ -1,5 +1,3 @@
-//import { Personaje } from "./Personaje.js";
-
 export class Runner {
 
     constructor() {

@@ -24,7 +24,7 @@ export class GameManager {
         this.score = 0;
         this.time = 30; //medido en segundos
         this.lives = 4;
-        this.creationInterval = 2000; //medido en milisegundos
+        this.creationInterval = 1500; //medido en milisegundos
 
         //intervals
         this.idIntervalspawn = null;
@@ -62,9 +62,10 @@ export class GameManager {
         //console.log(runner.status())
     }
 
-    increaseInterval(){ //incrementa el intervalo de creacion de objetos restandolo en 10 milisegundos siempre y cuando haya instancia del juego
+    increaseInterval(){ //incrementa el intervalo de creacion de objetos restandolo en 100 milisegundos siempre y cuando haya instancia del juego
         if ((GameManager.instance) && (this.creationInterval > 500)){ //
-            this.creationInterval -= 10; 
+            console.log('valor interval ' + this.creationInterval)
+            this.creationInterval -= 100; 
         } else {
             clearInterval(this.idIncreaseInterval); //detengo el intervalo si creation interval es menor a 500, se usa como maximo
         }    
@@ -104,40 +105,6 @@ export class GameManager {
                         INGAME_OBJECT.execute(this.character);    //ejecuta la accion sobre el character dependiendo del objeto
     
                         switch (INGAME_OBJECT.getType()) {    
-                            case "BlastAttack":
-                                if (!this.character.isTransformed()) {
-                                    if (!this.isHurtFlag) {
-                                        this.audioManager.hitSound.play();
-    
-                                        this.decreaseLives();
-                                        this.decreaseScoreBy(Math.floor(Math.random() * 2) + 1); //decrementa puntos en una cantidad random
-        
-                                        this.isHurtFlag = true;
-        
-        
-                                        setTimeout((e) => {
-                                            this.isHurtFlag = false;
-                                        }, 1400);
-                                    }
-                                }
-                                break;
-                            case "Frieza":
-                                if (!this.character.isTransformed()) {
-                                    if (!this.isHurtFlag) {
-                                        this.audioManager.hitSound.play();
-    
-                                        this.decreaseLives();
-                                        this.decreaseScoreBy(Math.floor(Math.random() * 2) + 1);
-        
-                                        this.isHurtFlag = true;
-        
-        
-                                        setTimeout((e) => {
-                                            this.isHurtFlag = false;
-                                        }, 1400);
-                                    }
-                                }
-                                break;
                             case "skeleton":
                                 if (!this.character.isTransformed()) {
                                     if (!this.isHurtFlag) {
