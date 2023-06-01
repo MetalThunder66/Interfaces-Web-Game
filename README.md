@@ -1,3 +1,3 @@
-# Interfaces-Web-Game
-Trabajo entregable Nº 3: Juego 2d Web
-Alumno: Agustin Ignacio Sau
+#Interfaces-Web-Game <br>
+>Trabajo entregable Nº 3: Juego 2d Web <br>
+>Alumno: Agustin Ignacio Sau
