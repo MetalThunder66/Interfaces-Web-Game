@@ -72,7 +72,7 @@ body {
     height: 30%;
     background: url("images/background/piso.png") repeat-x;
     background-size: 1500px 283px;
-    animation: paralax 5s linear infinite;
+    animation: paralax 6s linear infinite;
     position: absolute;
     bottom: -60px;
     z-index: 0;
@@ -86,6 +86,16 @@ body {
     100% {
         background-position: 0
     }
+}
+
+#personaje {
+    position: absolute;
+    width: 570px;
+    height: 740px;
+    z-index: 1;
+    bottom: -110px;
+    left: -150px;
+    transform: scale(.4);
 }
 
 .correr {
@@ -137,15 +147,18 @@ body {
     }
 } 
 
-/*#enemigo {
+#enemigo {
     position: absolute;
-    bottom: -218px;
     
-}*/
+}
 
 .skeleton{
-    background: url("images/enemies/skeleton.png") repeat-x;
-    animation: movimiento-pantalla 20s forwards, animacion-sprite .20s steps(13) infinite; /*par el enemigo uso 2 animaciones, una para el movimiento y otra para el sprite */  
+    transform: scale(.16); 
+    width: 1045px;
+    height: 780px;
+    bottom: -218px;
+    background: url("images/enemies/skeleton/skeleton.png") repeat-x;
+    animation: movimiento-pantalla 20s forwards, animacion-sprite .20s steps(13) infinite; /*par el enemigo uso 2 animaciones, una para el movimiento y otra para el sprite */ 
 }
 
 @keyframes movimiento-pantalla {
@@ -160,8 +173,7 @@ body {
 
 @keyframes animacion-sprite {
     0% {
-        background-position: 0;
-        
+        background-position: 0;        
     }
 
     100% {

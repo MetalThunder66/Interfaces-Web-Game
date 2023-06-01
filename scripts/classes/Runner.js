@@ -1,22 +1,16 @@
-import { Personaje } from "./Personaje.js";
+//import { Personaje } from "./Personaje.js";
 
-export class Runner extends Personaje {
+export class Runner {
 
     constructor() {
-        super();
-        this.defensa = 0;
+        //super();
         this.invisiviltyStatus = false; //variable para no recibir danio continuo
 
-        //seteo configuraciones del personaje
+        //captura del personaje
         this.personaje = document.getElementById("personaje");
-        this.personaje.style.position = 'absolute';
-        this.personaje.style.width = '570px';
-        this.personaje.style.height = '740px';
-        this.personaje.style.zIndex = 1;
-        this.personaje.style.bottom = '-110px';
-        this.personaje.style.left = '-150px';
-        this.personaje.style.transform = 'scale(.4)';
     }
+
+    //runner puede tener un hidden cuando se esta en el menu, a la hora de instanciar el juego quitarselo asi se puede ver, de fondo del menu se ve el paralax normalmente
 
     status() {
         return this.personaje.getBoundingClientRect(); //retorna la posicion actual del elemento en coordenadas y otros datos
@@ -56,5 +50,14 @@ export class Runner extends Personaje {
         this.personaje.classList.remove("saltar");
         this.personaje.classList.remove("caer"); 
         this.personaje.removeEventListener("animationend", () => {}); 
+    }
+
+    isHurt(){ //maneja un coldown cuando se recibe danio
+        if(!this.invisiviltyStatus){ 
+            this.invisiviltyStatus = true;
+
+
+
+        }
     }
 }
