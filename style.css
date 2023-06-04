@@ -89,13 +89,16 @@ body {
 }
 
 #personaje {
-    position: absolute;
+    position: fixed;
     width: 570px;
     height: 740px;
     z-index: 1;
     bottom: -110px;
     left: -150px;
     transform: scale(.4);
+    border-bottom-right-radius: 52%;
+    border-bottom-left-radius: 55%;
+    background-color: black;
 }
 
 .correr {
@@ -115,7 +118,7 @@ body {
 
 .saltar {
     background: url("images/character/02_jump_01start/jump-start.png") repeat-x;
-    animation: saltar .5s steps(22) forwards;
+    animation: saltar .8s steps(22) forwards;
 }
 
 @keyframes saltar {
@@ -149,7 +152,7 @@ body {
 
 .atacado {
     background: url("images/character/atacado.png") repeat-x;
-    animation: atacado 2.7s steps(4) forwards, parpadeo 2s forwards;  /* aniade un efecto de parpadeo cuando el runner recibe danio */
+    animation: atacado 2.5s steps(4) forwards, parpadeo 1.8s forwards;  /* aniade un efecto de parpadeo cuando el runner recibe danio */
     
 }
 
@@ -161,10 +164,6 @@ body {
         background-position: -3196px;
     }
 } 
-
-.invencivility{
-    
-}
 
 @keyframes parpadeo {
     0% {
@@ -195,7 +194,7 @@ body {
     height: 780px;
     bottom: -218px;
     background: url("images/enemies/skeleton/skeleton.png") repeat-x;
-    animation: movimiento-pantalla 15s forwards, animacion-sprite .20s steps(13) infinite; /*par el enemigo uso 2 animaciones, una para el movimiento y otra para el sprite */ 
+    animation: movimiento-pantalla 15s forwards, animacion-skeleton .20s steps(13) infinite; /*par el enemigo uso 2 animaciones, una para el movimiento y otra para el sprite */ 
 }
 
 @keyframes movimiento-pantalla {
@@ -208,13 +207,32 @@ body {
     }
   }
 
-@keyframes animacion-sprite {
+@keyframes animacion-skeleton {
     0% {
         background-position: 0;        
     }
 
     100% {
         background-position: -15795px;
+    }
+}
+
+.meat-soldier{
+    transform: scale(.16); 
+    width: 761px;
+    height: 901px;
+    bottom: -266px;
+    background: url("images/enemies/meatsoldier-sheet.png") repeat-x;
+    animation: movimiento-pantalla 18s forwards, animacion-meat-soldier .8s steps(16) infinite; /*par el enemigo uso 2 animaciones, una para el movimiento y otra para el sprite */ 
+}
+
+@keyframes animacion-meat-soldier {
+    0% {
+        background-position: 0;        
+    }
+
+    100% {
+        background-position: -12176px;
     }
 }
 

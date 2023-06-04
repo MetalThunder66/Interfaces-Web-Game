@@ -15,6 +15,7 @@ export class GameManager {
         //spawneo al jugador
         this.runner = new Runner();
 
+        //pool de objetos disponibles en el juego
         this.objectPool = new ObjectPool();
 
         //this.audioManager = new AudioManager();
@@ -31,7 +32,7 @@ export class GameManager {
         this.idIncreaseInterval = null;
 
         //flags
-        this.isInvencible = false;
+        this.damageCooldown = false;
 
         //objetos en pantalla
         this.inGameObjs = [];
@@ -78,14 +79,24 @@ export class GameManager {
     }
 
     characterCollision(runnerStatus, gameObjectStatus) {
-        if (!(runnerStatus.right < gameObjectStatus.left ||
-            runnerStatus.left > gameObjectStatus.right ||
-            runnerStatus.bottom < gameObjectStatus.top ||
-            runnerStatus.top > gameObjectStatus.bottom)){
-                return true   
-        }
+            
 
-        return false;
+            //calculo los OFFSETS. Se le suma o resta segun corresponda cuanto se quiere ignorar para que las colisiones sean mas precisas
+            const CHARACTER_LEFT = runnerStatus.left + 75;
+            const CHARACTER_RIGHT = runnerStatus.right - 75;
+            const CHARACTER_TOP = runnerStatus.top + 60;
+            const CHARACTER_BOTTOM = runnerStatus.bottom - 60;
+
+
+        if (!(CHARACTER_RIGHT < gameObjectStatus.left ||
+            CHARACTER_LEFT > gameObjectStatus.right ||
+            CHARACTER_BOTTOM < gameObjectStatus.top ||
+            CHARACTER_TOP > gameObjectStatus.bottom)){
+                return true
+                   
+        }else{
+            return false;
+        }
     }
 
     /*if (!(runnerStatus.right < enemigo.left ||
@@ -96,58 +107,46 @@ export class GameManager {
                 }*/
 
     checkCollision() {
-        //colisiones viejo
-        /*
-        enemigo = document.getElementById('enemigo').getBoundingClientRect();
-        console.log(enemigo)
-        if (!(runnerStatus.right < enemigo.left ||
-            runnerStatus.left > enemigo.right ||
-            runnerStatus.bottom < enemigo.top ||
-            runnerStatus.top > enemigo.bottom)) {
-                console.log('colision detectada')
-            }
-
-    */  //SI HAY objetos GENERADOS CHEQUEO COLISIONES, USAR UN FLAG
+        //SI HAY objetos GENERADOS CHEQUEO COLISIONES, USAR UN FLAG
         if (this.inGameObjs.length > 0) {
             for (let i = 0; i < this.inGameObjs.length; i++) {
                 const INGAME_OBJECT = this.inGameObjs[i];
-                console.log('se devolvera' + this.inGameObjs[i].getDivNumber());
+                
                 if (!INGAME_OBJECT.getIsActive()) {       //si el object no esta activo, quiere decir que se termino su animacion y no se ve mas en la pantalla, por lo que se le devuelve al pool
                     this.inGameObjs.splice(i, 1);
                     this.objectPool.devolverObjeto(INGAME_OBJECT);
-                    console.log('se devolvio' + INGAME_OBJECT.getDivNumber());
-
 
                 } else {
                     const RUNNER_STATUS = this.runner.status();
-                    console.log('character status ' + RUNNER_STATUS);
-                    const INGAME_OBJECT_STATUS = INGAME_OBJECT.status();
+                    const INGAME_OBJECT_STATUS = INGAME_OBJECT.status(); //variable tipo gameObject, status posee getBoundingClientRect()
 
-                    if (this.characterCollision(RUNNER_STATUS, INGAME_OBJECT_STATUS) == true) {    //si el objeto colisiono con el character
+                    if ((this.characterCollision(RUNNER_STATUS, INGAME_OBJECT_STATUS) == true)) {    //si el objeto colisiono con el character
                         INGAME_OBJECT.effect(this.runner);    //ejecuta la accion sobre el character dependiendo del objeto
 
 
                         switch (INGAME_OBJECT.getType()) {
                             case "skeleton":
-                                if (!this.isInvencible) {
+                                if (this.damageCooldown != true) {
                                     //if (!this.isHurtFlag) {
-                                        this.isInvencible = true;
+                                        this.damageCooldown = true;
+                                        console.log('cooldown iniciado ' + this.damageCooldown)
                                         //this.audioManager.hitSound.play();
 
                                         this.decreaseLive();
                                         this.decreaseScoreBy(Math.floor(Math.random() * 2) + 1);
 
-                                        
+                                        console.log('danio recibido')
 
                                         setTimeout((e) => {
-                                            this.isInvencible = false;
-                                        }, 2000);
+                                            this.damageCooldown = false;
+                                            console.log('cooldown finalizado ' + this.damageCooldown)
+                                        },2000);
                                    // }
                                 }
                                 break;
                             case "invencivility":
                                 //this.audioManager.powerUpSound.play();
-                                //this.giveRunnerInvencivility();
+                                this.giveRunnerInvencivility();
                                 break;
                             case "puntaje":
                                 //this.audioManager.bonusSound.play();

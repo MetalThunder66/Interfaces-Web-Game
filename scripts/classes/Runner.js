@@ -4,7 +4,7 @@ export class Runner {
         //super();
         this.state = "correr"; //si esta corriendo, saltando, cayendo o recibiendo danio
 
-        this.invencivilityStatus = false; //variable para no recibir danio continuo
+        this.invencivilityStatus = false; //variable para no recibir danio continuo y power up invencible
 
         //captura del personaje
         this.runner = document.getElementById("personaje");
@@ -20,35 +20,6 @@ export class Runner {
         return this.invencivilityStatus;
     }
 
-    damaged(){
-        if (!this.getInvisiviltyStatus()){ //si invisivility es falso
-            this.invencivilityStatus = true;
-            if (this.state == "correr") {     
-                this.runner.classList.replace("correr", "atacado");
-
-        
-                
-
-                //this.personaje.classList.add('danio');
-
-                const vuelveACorrer = (e) => {
-                    this.runner.classList.replace("atacado", "correr");     //regresa a correr
-                    //this.runner.classList.add("parpadeo"); //le aniado un efecto de parpadeo ya que no recibira danio por los proximos segundos
-
-
-                    this.runner.removeEventListener("animationend", vuelveACorrer);    //se le remueve el evento porque ya termino la animacion
-                }
-        
-                this.runner.addEventListener("animationend", vuelveACorrer);   //cuando termina de transformarse vuelve a correr
-            }
-
-            setTimeout(() => {
-                this.invencivilityStatus = false; //le quito la invisivilidad luego de este tiempo
-            }, 3000);
-
-        }    
-    }
-
     activateInvencivility(){
         this.invencivilityStatus = true;   
         
@@ -61,6 +32,38 @@ export class Runner {
     getState(){
         return this.state;
     }
+
+    damaged(){
+        if (!this.getInvisiviltyStatus()){ //si invisivility es falso
+            //this.invencivilityStatus = true;
+            if (this.state == "correr") {     
+                this.runner.classList.replace("correr", "atacado"); //le aniado un efecto de parpadeo ya que no recibira danio por los proximos segundos
+
+        
+                
+
+                //this.personaje.classList.add('danio');
+
+                const vuelveACorrer = (e) => {
+                    this.runner.classList.replace("atacado", "correr");     //regresa a correr
+                    //this.runner.classList.add("parpadeo"); 
+
+
+                    this.runner.removeEventListener("animationend", vuelveACorrer);    //se le remueve el evento porque ya termino la animacion
+                }
+        
+                this.runner.addEventListener("animationend", vuelveACorrer);   //cuando termina la animacion de danio vuelve a correr
+            }
+
+            /*
+            setTimeout(() => {
+                this.invencivilityStatus = false; //le quito la invisivilidad luego de este tiempo
+            }, 3000);*/
+
+        }    
+    }
+
+    
 
     correr() {
         this.clean();
