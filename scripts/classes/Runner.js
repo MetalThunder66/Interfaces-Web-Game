@@ -24,9 +24,9 @@ export class Runner {
         this.invencivilityStatus = true;   
         
         setTimeout(() => {
-            this.invencivilityStatus = false; //le quito la invisivilidad luego de este tiempo
+            this.invencivilityStatus = false; 
             this.runner.classList.remove("invencivility");
-        }, 8000);
+        }, 8000); //le quito la invisivilidad luego de este tiempo
     }
 
     getState(){

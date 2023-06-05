@@ -1,19 +1,22 @@
 export class GameObject {
     static cantidadObjetos = 0; //es un contador que lleva la cantidad de objetos creados, para saber luego q div borrar mas facil
 
-    constructor(tipo) {
+    constructor(tipo, idObjeto) {
         this.type = tipo;
         //this.spawnPositions = [];      //puede aparecer en estas posiciones
         this.isActive = false;   //variable para saber si el objeto esta insertado en el DOM
 
-        GameObject.cantidadObjetos++;
-        console.log('cant objs ' + GameObject.cantidadObjetos)
+        //GameObject.cantidadObjetos++;
+        //console.log('cant objs ' + GameObject.cantidadObjetos)
 
         this.gameContainer = document.querySelector(".contenedor");
 
         this.gameElementDiv = document.createElement("div");    //crea un elemento div por cada gameObject pero todavia no lo inserta
 
-        this.gameElementDiv.dataset.number = GameObject.cantidadObjetos; //el data set llevara el numero de div del objeto
+        this.gameElementDiv.id = idObjeto; //id segun el tipo de objeto que sea
+
+        this.gameElementDiv.classList.add(tipo); //clase segun el tipo de objeto que sea
+        //this.gameElementDiv.dataset.number = GameObject.cantidadObjetos; //el data set llevara el numero de div del objeto
     }
 
     status() {
@@ -28,9 +31,10 @@ export class GameObject {
         return this.isActive;
     }
 
+    /*
     getDivNumber(){
         return this.gameElementDiv.dataset.number;
-    }
+    }*/
 
     spawn() {
         document.getElementById("contenedor").appendChild(this.gameElementDiv);

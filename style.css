@@ -194,7 +194,7 @@ body {
     height: 780px;
     bottom: -218px;
     background: url("images/enemies/skeleton/skeleton.png") repeat-x;
-    animation: movimiento-pantalla 15s forwards, animacion-skeleton .20s steps(13) infinite; /*par el enemigo uso 2 animaciones, una para el movimiento y otra para el sprite */ 
+    animation: movimiento-pantalla 18s forwards, animacion-skeleton .20s steps(13) infinite; /*par el enemigo uso 2 animaciones, una para el movimiento y otra para el sprite */ 
 }
 
 @keyframes movimiento-pantalla {
@@ -223,7 +223,7 @@ body {
     height: 901px;
     bottom: -266px;
     background: url("images/enemies/meatsoldier-sheet.png") repeat-x;
-    animation: movimiento-pantalla 18s forwards, animacion-meat-soldier .8s steps(16) infinite; /*par el enemigo uso 2 animaciones, una para el movimiento y otra para el sprite */ 
+    animation: movimiento-pantalla 22s forwards, animacion-meat-soldier .8s steps(16) infinite; /*par el enemigo uso 2 animaciones, una para el movimiento y otra para el sprite */ 
 }
 
 @keyframes animacion-meat-soldier {
