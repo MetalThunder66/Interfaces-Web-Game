@@ -1,5 +1,6 @@
 import { ObjectPool } from "./ObjectPool.js";
 import { Runner } from "./Runner.js";
+import { Tablero } from "./Tablero.js";
 
 export class GameManager {
     constructor() {
@@ -13,6 +14,9 @@ export class GameManager {
         //spawneo al jugador
         this.runner = new Runner();
 
+        //tablero del jugador con puntaje, vidas, tiempo
+        //this.tablero = new Tablero();
+
         //pool de objetos disponibles en el juego
         this.objectPool = new ObjectPool();
 
@@ -23,7 +27,7 @@ export class GameManager {
         this.score = -100;
         this.time = 30; //medido en segundos
         this.lives = 4;
-        this.creationInterval = 2500; //medido en milisegundos
+        this.creationInterval = 2000; //medido en milisegundos
 
         //intervals
         this.gameLoopInterval = null;
@@ -85,13 +89,11 @@ export class GameManager {
         //no me reconocia las funciones y daba error, encontre de solucion ponerle .bind(this)
         this.gameLoopInterval = setInterval(this.inGameLoop.bind(this), 30); 
 
-        //activo intervalo para el temporizador, resta en 1 a cada segundo
+        //activo intervalo para el temporizador, resta en 1 a cada segundo y suma puntos (100) por cada segundo que pase
         this.temporizadorInterval = setInterval(this.timerAndScore.bind(this), 1000);
-        
-        //Puntaje?
 
         //intervalo de spawn de objetos
-        this.idIntervalIncrease = setInterval(this.increaseInterval, 15000); //cada 20 segundos, aumento el spawn de objects
+        this.idIntervalIncrease = setInterval(this.increaseInterval, 10000); //cada 10 segundos, aumento el spawn de objects
     }
 
     inGameLoop() {
@@ -106,15 +108,14 @@ export class GameManager {
     inputListener() {
         //listener tecla salto
         document.addEventListener('keyup', (event) => {
-            console.log(event)
-            switch (event.key) {
+            switch (event.code) {
                 case "ArrowUp":
                     //this.audioManager.jumpSound.play();
                     this.runner.saltar();
                     break;
                 case "Space":
                     //this.audioManager.attackSound.play();
-                    this.runner.attack();
+                    this.runner.atacar();
                     break;   
             }
         });
@@ -151,13 +152,14 @@ export class GameManager {
 
     //OBJECTS SPAWN
     increaseInterval = () => { //incrementa el intervalo de creacion de objetos restandolo en 200 milisegundos siempre y cuando haya instancia del juego
-        if ((GameManager.instance) && (this.creationInterval > 2000)) { 
+        if ((GameManager.instance) && (this.creationInterval > 1500)) { 
 
             clearInterval(this.idIntervalspawn); //elimino intervalo con el valor anterior
-            console.log('respawn id ' + this.idIntervalspawn)
-            this.creationInterval -= 10;
+            
+            this.creationInterval -= 20;
 
             this.idIntervalspawn = setInterval(this.spawnObjects, this.creationInterval); //creo nuevo intervalo con nuevo valor y lo guardo en idIntervalspawn
+            
             console.log('valor interval ' + this.creationInterval)
         } else {
             clearInterval(this.idIntervalIncrease); //detengo el intervalo si creation interval es menor a 2000, se usa como maximo
@@ -213,11 +215,12 @@ export class GameManager {
 
                         switch (INGAME_OBJECT.getType()) {
                             case "skeleton":
-                                if (this.damageCooldown != true) {
+                                
+                                if ((this.damageCooldown == false) && (this.runner.getState == "corriendo")) {
 
                                     this.damageCooldown = true;
                                     console.log('cooldown iniciado ' + this.damageCooldown)
-                                    //this.audioManager.hitSound.play();
+                                    //this.audioManager.explosionSound.play();
 
                                     this.decreaseLives();
                                     this.decreaseScoreBy(this.generateRandomNumber(50, 75)); 
@@ -225,8 +228,7 @@ export class GameManager {
                                     setTimeout((e) => {
                                         this.damageCooldown = false;
                                         console.log('cooldown finalizado ' + this.damageCooldown)
-                                    }, 2000);
-                                    // }
+                                    }, 4000);
                                 }
                                 break;
                             case "meat-soldier":
@@ -292,7 +294,7 @@ export class GameManager {
 
     increaseLives() {
         if (this.lives > 0) {
-            this.lives += 1;
+            this.lives ++;
         }
     }
 

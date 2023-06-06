@@ -148,68 +148,91 @@ body {
         background-position: -8899px;
         bottom: -110px;
     }
-} 
+}
 
 .atacado {
     background: url("images/character/atacado.png") repeat-x;
-    animation: atacado 2.5s steps(4) forwards, parpadeo 1.8s forwards;  /* aniade un efecto de parpadeo cuando el runner recibe danio */
-    
+    animation: atacado 2.5s steps(4) forwards, parpadeo 1.8s forwards;
+    /* aniade un efecto de parpadeo cuando el runner recibe danio */
 }
 
 @keyframes atacado {
     0% {
-        background-position: 0;   
+        background-position: 0;
     }
+
     100% {
         background-position: -3196px;
     }
-} 
+}
 
 @keyframes parpadeo {
     0% {
         opacity: 0;
-      }
+    }
+
     25% {
-      opacity: 1;
+        opacity: 1;
     }
+
     50% {
-      opacity: 0;
+        opacity: 0;
     }
+
     75% {
         opacity: 1;
     }
+
     100% {
-      opacity: 0;
+        opacity: 0;
     }
-  }
+}
+
+.atacar {
+    background: url("images/character/punch.png") repeat-x;
+    animation: golpear .5s steps(10) forwards;
+}
+
+@keyframes golpear {
+    0% {
+        background-position: 0;
+    }
+
+    100% {
+        background-position: -7990px;
+    }
+}
 
 #enemigo {
     position: absolute;
-    z-index: 1; 
+    z-index: 1;
 }
 
-.skeleton{
-    transform: scale(.16); 
+.skeleton {
+    transform: scale(.16);
     width: 1045px;
     height: 780px;
     bottom: -218px;
     background: url("images/enemies/skeleton/skeleton.png") repeat-x;
-    animation: movimiento-pantalla 18s forwards, animacion-skeleton .20s steps(13) infinite; /*par el enemigo uso 2 animaciones, una para el movimiento y otra para el sprite */ 
+    animation: movimiento-pantalla 18s forwards, animacion-skeleton .20s steps(13) infinite;
+    /*par el enemigo uso 2 animaciones, una para el movimiento y otra para el sprite */
 }
 
 @keyframes movimiento-pantalla {
     0% {
-      left: 100vw; /* Posición inicial en el lado derecho */
+        left: 100vw;
+        /* Posición inicial en el lado derecho */
     }
-  
+
     100% {
-      left: -150vw; /* Posición final en el lado izquierdo */
+        left: -150vw;
+        /* Posición final en el lado izquierdo */
     }
-  }
+}
 
 @keyframes animacion-skeleton {
     0% {
-        background-position: 0;        
+        background-position: 0;
     }
 
     100% {
@@ -217,18 +240,19 @@ body {
     }
 }
 
-.meat-soldier{
-    transform: scale(.16); 
+.meat-soldier {
+    transform: scale(.16);
     width: 761px;
     height: 901px;
     bottom: -266px;
     background: url("images/enemies/meatsoldier-sheet.png") repeat-x;
-    animation: movimiento-pantalla 22s forwards, animacion-meat-soldier .8s steps(16) infinite; /*par el enemigo uso 2 animaciones, una para el movimiento y otra para el sprite */ 
+    animation: movimiento-pantalla 22s forwards, animacion-meat-soldier .8s steps(16) infinite;
+    /*par el enemigo uso 2 animaciones, una para el movimiento y otra para el sprite */
 }
 
 @keyframes animacion-meat-soldier {
     0% {
-        background-position: 0;        
+        background-position: 0;
     }
 
     100% {
@@ -236,18 +260,20 @@ body {
     }
 }
 
-.explosion{
-    background: url("images/enemies/explode.png") repeat-x;  
-    animation: explotar .5s steps(13) forwards;
+.explosion {
+    background: url("images/enemies/explosion.png") repeat-x;
+    animation: explotar .6s steps(13) forwards;
+    left: -20vw;
+    bottom: -12vw;
+    scale: 1.3;
 }
 
 @keyframes explotar {
     0% {
-        background-position: 0;        
+        background-position: 0;
     }
 
     100% {
         background-position: -15795px;
     }
 }
-
