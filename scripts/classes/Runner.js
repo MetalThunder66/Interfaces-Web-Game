@@ -3,7 +3,8 @@ export class Runner {
     constructor() {
         this.state = "corriendo"; //si esta corriendo, saltando, cayendo o recibiendo danio
 
-        this.invencivilityStatus = false; //variable para no recibir danio continuo y power up invencible
+        this.invencivilityStatus = false; //power up invencible
+        this.coolDownFlag = false;  //variable para no recibir danio continuo
 
         //captura del personaje
         this.runner = document.getElementById("personaje");
@@ -23,6 +24,20 @@ export class Runner {
         return this.invencivilityStatus;
     }
 
+    getDamageCooldownFlag(){
+        return this.coolDownFlag;
+    }
+
+    activateDamageCooldown(){
+        this.coolDownFlag = true;
+        this.runner.classList.add('correr-damage-cooldown');
+    }
+
+    deactivateDamageCooldown(){
+        this.coolDownFlag = false;
+        this.runner.classList.remove('correr-damage-cooldown');
+    }
+
     activateInvencivility(){
         this.invencivilityStatus = true;   
         
@@ -33,22 +48,20 @@ export class Runner {
     }
 
     damaged(){
-        if (!this.getInvisiviltyStatus()){ //si invisivility es falso
+        if ((!this.getInvisiviltyStatus()) && (!this.getDamageCooldownFlag())){ //si invisivility es falso
             if (this.state == "corriendo") { 
 
                 this.state = "atacado";  
                 this.runner.classList.replace("correr", "atacado"); //le aniado un efecto de parpadeo ya que no recibira danio por los proximos segundos
-                console.log(this.state)
+            
                 const vuelveACorrer = (e) => {
                     this.state = "corriendo"
                     this.runner.classList.replace("atacado", "correr");     //regresa a correr
                     this.runner.removeEventListener("animationend", vuelveACorrer);    //se le remueve el evento porque ya termino la animacion
-                    console.log(this.state)
                 }
         
                 this.runner.addEventListener("animationend", vuelveACorrer);   //cuando termina la animacion de danio vuelve a correr
             }
-
         }    
     }
 

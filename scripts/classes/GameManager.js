@@ -36,7 +36,7 @@ export class GameManager {
         this.temporizadorInterval = null;
 
         //flags
-        this.damageCooldown = false;
+        //this.damageCooldown = false;
 
         //objetos en pantalla
         this.inGameObjs = [];
@@ -48,7 +48,7 @@ export class GameManager {
         //this.runner.classList.remove('hidden');
 
         //pongo a escuchar los controles del juego
-        this.inputListener(); 
+        this.inputListener();
     }
 
     //GETERS
@@ -75,10 +75,10 @@ export class GameManager {
     //METODOS PRINCIPALES DEL GAME MANAGER
     render() {
         //crea intervalo de creacion de enemigos
-        this.idIntervalspawn = setInterval(this.spawnObjects, this.creationInterval); 
+        this.idIntervalspawn = setInterval(this.spawnObjects, this.creationInterval);
 
         console.log('valor interval ' + this.creationInterval)
-        
+
         //muestra el tiempo restante en el juego 
 
         // mostar en el html el puntaje
@@ -87,7 +87,7 @@ export class GameManager {
 
     update() {
         //no me reconocia las funciones y daba error, encontre de solucion ponerle .bind(this)
-        this.gameLoopInterval = setInterval(this.inGameLoop.bind(this), 30); 
+        this.gameLoopInterval = setInterval(this.inGameLoop.bind(this), 30);
 
         //activo intervalo para el temporizador, resta en 1 a cada segundo y suma puntos (100) por cada segundo que pase
         this.temporizadorInterval = setInterval(this.timerAndScore.bind(this), 1000);
@@ -116,14 +116,14 @@ export class GameManager {
                 case "Space":
                     //this.audioManager.attackSound.play();
                     this.runner.atacar();
-                    break;   
+                    break;
             }
         });
     }
 
     //TEMPORIZADOR
     decreaseTime() {
-       this.time --;   
+        this.time--;
     }
 
     increaseTime() {
@@ -138,28 +138,28 @@ export class GameManager {
         //ademas, sumo 100 puntos cada 1 segundo
         this.increaseScore(100);
         console.log('score ' + this.score)
-         
+
         //verificar si el tiempo restante ha llegado a cero
         if ((this.getTime()) <= 0) {
-            
-          // El tiempo ha terminado, realizar alguna acción (por ejemplo, fin del juego)
-          console.log("Tiempo terminado");
 
-          clearInterval(this.temporizadorInterval); // Detener el temporizador
+            // El tiempo ha terminado, realizar alguna acción (por ejemplo, fin del juego)
+            console.log("Tiempo terminado");
+
+            clearInterval(this.temporizadorInterval); // Detener el temporizador
         }
     }
 
 
     //OBJECTS SPAWN
     increaseInterval = () => { //incrementa el intervalo de creacion de objetos restandolo en 200 milisegundos siempre y cuando haya instancia del juego
-        if ((GameManager.instance) && (this.creationInterval > 1500)) { 
+        if ((GameManager.instance) && (this.creationInterval > 1500)) {
 
             clearInterval(this.idIntervalspawn); //elimino intervalo con el valor anterior
-            
+
             this.creationInterval -= 20;
 
             this.idIntervalspawn = setInterval(this.spawnObjects, this.creationInterval); //creo nuevo intervalo con nuevo valor y lo guardo en idIntervalspawn
-            
+
             console.log('valor interval ' + this.creationInterval)
         } else {
             clearInterval(this.idIntervalIncrease); //detengo el intervalo si creation interval es menor a 2000, se usa como maximo
@@ -169,8 +169,8 @@ export class GameManager {
     spawnObjects = () => { //generacion de objetos en la partida, funcion flecha para que el contexto se mantenga dentro de spawnObjects()
         //recojo algun objeto del pool object
         console.log('ingameobjs ' + this.inGameObjs.length);
-        if (this.inGameObjs.length != this.objectPool.getMaxSize()){ //mientras haya objetos del pool por spawnear
-            let objetFromPool = this.objectPool.adquirirObjeto(); 
+        if (this.inGameObjs.length != this.objectPool.getMaxSize()) { //mientras haya objetos del pool por spawnear
+            let objetFromPool = this.objectPool.adquirirObjeto();
             objetFromPool.spawn(); //lo muestro en el juego
             this.inGameObjs.push(objetFromPool);    //se añade al array de objectos in game el object actual
         };
@@ -197,88 +197,142 @@ export class GameManager {
     }
 
     checkCollision() {
-        //SI HAY objetos GENERADOS CHEQUEO COLISIONES, USAR UN FLAG
+        //si existen objetos creados, chequeo colisiones
         if (this.inGameObjs.length > 0) {
-            for (let i = 0; i < this.inGameObjs.length; i++) {
+            for (let i = 0; i < this.inGameObjs.length; i++) { //consulto por cada elemento ingame
                 const INGAME_OBJECT = this.inGameObjs[i];
 
                 if (!INGAME_OBJECT.getIsActive()) {       //si el object no esta activo, quiere decir que se termino su animacion y no se ve mas en la pantalla, por lo que se le devuelve al pool
                     this.inGameObjs.splice(i, 1);
                     this.objectPool.mandarObjeto(INGAME_OBJECT);
-
                 } else {
                     const RUNNER_STATUS = this.runner.status();
                     const INGAME_OBJECT_STATUS = INGAME_OBJECT.status(); //variable tipo gameObject, status posee getBoundingClientRect()
 
-                    if ((this.characterCollision(RUNNER_STATUS, INGAME_OBJECT_STATUS) == true)) {    //si el objeto colisiono con el character
-                        INGAME_OBJECT.effect(this.runner);    //ejecuta la accion sobre el character dependiendo del objeto
+                    if ((this.characterCollision(RUNNER_STATUS, INGAME_OBJECT_STATUS))) {    //si el objeto colisiono con el character
 
-                        switch (INGAME_OBJECT.getType()) {
-                            case "skeleton":
-                                
-                                if ((this.damageCooldown == false) && (this.runner.getState == "corriendo")) {
+                        if ((INGAME_OBJECT.getId() == 'enemigo') &&
+                            (!this.runner.getDamageCooldownFlag()) &&
+                            (this.runner.getState() == "corriendo")) { //si el objeto con el que interacciono es enemigo, ejecuto el siguiente bloque 
 
-                                    this.damageCooldown = true;
-                                    console.log('cooldown iniciado ' + this.damageCooldown)
+                            INGAME_OBJECT.effect(this.runner);    //ejecuta la accion sobre el character cuando es un enemigo
+
+                            this.runner.activateDamageCooldown();
+
+                            switch (INGAME_OBJECT.getType()) {
+                                case "skeleton":
                                     //this.audioManager.explosionSound.play();
 
                                     this.decreaseLives();
-                                    this.decreaseScoreBy(this.generateRandomNumber(50, 75)); 
+                                    this.decreaseScoreBy(this.generateRandomNumber(50, 75));
 
-                                    setTimeout((e) => {
-                                        this.damageCooldown = false;
-                                        console.log('cooldown finalizado ' + this.damageCooldown)
-                                    }, 4000);
-                                }
-                                break;
-                            case "meat-soldier":
-                                if (this.damageCooldown != true) {
-
-                                    this.damageCooldown = true;
-                                    console.log('cooldown iniciado ' + this.damageCooldown)
+                                    break;
+                                case "meat-soldier":
                                     //this.audioManager.hitSound.play();
 
                                     this.decreaseLives();
-                                    this.decreaseScoreBy(this.generateRandomNumber(25, 50)); 
+                                    this.decreaseScoreBy(this.generateRandomNumber(25, 50));
+                                    break;
+                            }
 
+                            setTimeout((e) => {
+                                this.runner.deactivateDamageCooldown();
+                                console.log('cooldown finalizado ')
+                            }, 2500);
 
-                                    console.log('danio recibido')
+                        } else { //si pasa por aca es un objeto tipo bonus
 
-                                    setTimeout((e) => {
-                                        this.damageCooldown = false;
-                                        console.log('cooldown finalizado ' + this.damageCooldown)
-                                    }, 2000);
-                                    // }
-                                }
-                                break;
+                            INGAME_OBJECT.effect(this.runner); //ejecuta la accion sobre el character cuando es un bonus
 
-                            case "invencivility":
-                                //this.audioManager.powerUpSound.play();
-                                this.giveRunnerInvencivility();
-                                break;
-                            case "puntaje":
-                                //this.audioManager.bonusSound.play();
-                                this.increaseScore();
-                                break;
-                            case "vida":
-                                //this.audioManager.healthSound.play();
-                                this.increaseLives();
-                                break;
-                            case "clock":
-                                //this.audioManager.bonusSound.play();
-                                this.increaseTime();
-                                break;
+                            switch (INGAME_OBJECT.getType()) {
+                                case "invencivility":
+                                    //this.audioManager.powerUpSound.play();
+                                    this.giveRunnerInvencivility();
+                                    break;
+                                case "puntaje":
+                                    //this.audioManager.bonusSound.play();
+                                    this.increaseScore();
+                                    break;
+                                case "vida":
+                                    //this.audioManager.healthSound.play();
+                                    this.increaseLives();
+                                    break;
+                                case "clock":
+                                    //this.audioManager.bonusSound.play();
+                                    this.increaseTime();
+                                    break;
+                            }
                         }
                     }
                 }
             }
-        } else console.log('aun no hay objetos')
+        }
+        /* switch (INGAME_OBJECT.getType()) {
+            case "skeleton":
+                
+                if ((this.damageCooldown == false) && (this.runner.getState == "corriendo")) {
+
+                    this.damageCooldown = true;
+                    console.log('cooldown iniciado ' + this.damageCooldown)
+                    //this.audioManager.explosionSound.play();
+
+                    this.decreaseLives();
+                    this.decreaseScoreBy(this.generateRandomNumber(50, 75)); 
+
+                    setTimeout((e) => {
+                        this.damageCooldown = false;
+                        console.log('cooldown finalizado ' + this.damageCooldown)
+                    }, 4000);
+                }
+                break;
+            case "meat-soldier":
+                if (this.damageCooldown != true) {
+
+                    this.damageCooldown = true;
+                    console.log('cooldown iniciado ' + this.damageCooldown)
+                    //this.audioManager.hitSound.play();
+
+                    this.decreaseLives();
+                    this.decreaseScoreBy(this.generateRandomNumber(25, 50)); 
+
+
+                    console.log('danio recibido')
+
+                    setTimeout((e) => {
+                        this.damageCooldown = false;
+                        console.log('cooldown finalizado ' + this.damageCooldown)
+                    }, 4000);
+                    // }
+                }
+                break;
+
+            case "invencivility":
+                //this.audioManager.powerUpSound.play();
+                this.giveRunnerInvencivility();
+                break;
+            case "puntaje":
+                //this.audioManager.bonusSound.play();
+                this.increaseScore();
+                break;
+            case "vida":
+                //this.audioManager.healthSound.play();
+                this.increaseLives();
+                break;
+            case "clock":
+                //this.audioManager.bonusSound.play();
+                this.increaseTime();
+                break;
+        }
+    }
+}
+}
+} else console.log('aun no hay objetos') */
 
     };
 
     //Otros métodos y propiedades del GameManager//
 
-    generateRandomNumber(min, max){
+    generateRandomNumber(min, max) {
         return Math.floor(Math.floor(Math.random() * (max - min + 1)) + min); //genera un numero random entre mim y max inclusive
     }
 
@@ -288,13 +342,13 @@ export class GameManager {
 
     decreaseLives() {
         if (this.lives > 0) {
-            this.lives --;
+            this.lives--;
         }
     }
 
     increaseLives() {
         if (this.lives > 0) {
-            this.lives ++;
+            this.lives++;
         }
     }
 
@@ -313,8 +367,8 @@ export class GameManager {
         this.score += number;
     }
 
-    
 
-    
+
+
 }
 

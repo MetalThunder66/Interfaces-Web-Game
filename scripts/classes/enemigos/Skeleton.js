@@ -11,21 +11,20 @@ export class Skeleton extends GameObject {
     }
     
     effect(runner) {
-        if (!runner.getInvisiviltyStatus()) {     //si no tiene invensivilidad, el runner recibe danio
-            runner.damaged();     //el skeleton explota y lo borra del dom
-
-            this.gameElementDiv.classList.add('explosion');
-
-            this.gameElementDiv.addEventListener("animationend", () => {
-                this.gameElementDiv.classList.remove("explosion");
-
-                this.isActive = false;
-                this.gameElementDiv.remove(); //lo borra del dom cuando termina la animacion
-    
-                this.gameElementDiv.removeEventListener("animationend", () => {}); //libero el evento
-            }); 
-            
+        if ((!runner.getInvisiviltyStatus()) && (!runner.getDamageCooldownFlag())) {     //si no tiene invensivilidad, el runner recibe danio
+            runner.damaged();     //jugador recibe danio 
         } 
+
+        this.gameElementDiv.classList.add('explosion');
+
+        this.gameElementDiv.addEventListener("animationend", () => {
+            this.gameElementDiv.classList.remove("explosion");
+
+            this.isActive = false;
+            this.gameElementDiv.remove(); //lo borra del dom cuando termina la animacion
+
+            this.gameElementDiv.removeEventListener("animationend", () => {}); //libero el evento
+        }); 
     }
 
     spawn(){

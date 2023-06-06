@@ -11,14 +11,15 @@ export class MeatSoldier extends GameObject {
     }
     
     effect(runner) {
-        if (!runner.getInvisiviltyStatus()) {     //si no tiene invensivilidad, el runner recibe danio
-            runner.damaged();     //el skeleton explota y lo borra del dom
+        if ((!runner.getInvisiviltyStatus()) && (!runner.getDamageCooldownFlag())) {     //si no tiene invensivilidad, el runner recibe danio
+            runner.damaged();     //el jugador recibe danio
 
                 
-            this.isActive = false;
            
-            this.gameElementDiv.remove();
             
         } 
+        this.isActive = false;
+           
+        this.gameElementDiv.remove();
     }
 }

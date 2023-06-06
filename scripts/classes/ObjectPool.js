@@ -31,7 +31,7 @@ export class ObjectPool { //pool de objetos powerups y enemigos para economizar 
                 case 2:
                     this.mandarObjeto(new MeatSoldier())
                     break;
-                case "KienzanAttack":
+                /* case "KienzanAttack":
                     this.returnObjectToPool(new KienzanAttack());
                     break;
                 case "TransformPowerUp":
@@ -45,7 +45,7 @@ export class ObjectPool { //pool de objetos powerups y enemigos para economizar 
                     break;
                 case "Clock":
                     this.returnObjectToPool(new Clock());
-                    break;
+                    break; */
             }
             
             

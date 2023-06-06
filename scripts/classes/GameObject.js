@@ -27,6 +27,10 @@ export class GameObject {
         return this.type;
     }
 
+    getId() { //para saber de que tipo es este objeto si enemigo o powerup
+        return this.gameElementDiv.id;
+    }
+
     getIsActive() {     //retorna si el objeto se encuentra en el DOM o no
         return this.isActive;
     }
