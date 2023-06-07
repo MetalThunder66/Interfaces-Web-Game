@@ -4,19 +4,18 @@ export class MeatSoldier extends GameObject {
 
     constructor() {
         super('meat-soldier', 'enemigo');
+
+        this.attackValue = 10;
     }
 
-    status() {
-        return this.gameElementDiv.getBoundingClientRect(); 
+    getAttackValue(){
+        return this.attackValue;
     }
     
     effect(runner) {
         if ((!runner.getInvisiviltyStatus()) && (!runner.getDamageCooldownFlag())) {     //si no tiene invensivilidad, el runner recibe danio
             runner.damaged();     //el jugador recibe danio
-
-                
-           
-            
+   
         } 
         this.isActive = false;
            

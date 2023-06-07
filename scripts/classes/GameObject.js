@@ -68,4 +68,8 @@ export class GameObject {
     }
 
     //añadir metodos para posiciones random de los powerups?
+
+    randomValue(min, max) {
+        return Math.floor(Math.floor(Math.random() * (max - min + 1)) + min); //genera un valor random entre mim y max inclusive, para usarse en los powerups
+    }
 }

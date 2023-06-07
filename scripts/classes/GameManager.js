@@ -1,6 +1,6 @@
 import { ObjectPool } from "./ObjectPool.js";
 import { Runner } from "./Runner.js";
-import { Tablero } from "./Tablero.js";
+import { Tablero } from "./UI/Tablero.js";
 
 export class GameManager {
     constructor() {
@@ -26,7 +26,7 @@ export class GameManager {
         //propiedades del juego
         this.score = -100;
         this.time = 30; //medido en segundos
-        this.lives = 4;
+        this.healthPoints = 100;
         this.creationInterval = 2000; //medido en milisegundos
 
         //intervals
@@ -56,8 +56,8 @@ export class GameManager {
         return this.time;
     }
 
-    getLives() {
-        return this.lives;
+    getHealthPoints() {
+        return this.healthPoints;
     }
 
     getScore() {
@@ -122,14 +122,14 @@ export class GameManager {
     }
 
     //TEMPORIZADOR
-    decreaseTime() {
+     increaseTime(value) {
+        this.time += value;
+    }
+
+    decreaseTime() { //decrementa el timer en 1, se llama una vez cada segundo
         this.time--;
     }
-
-    increaseTime() {
-        this.time += 10;
-    }
-
+   
     timerAndScore() {
         //restar 1 segundo al tiempo restante
         console.log(this.getTime());
@@ -223,14 +223,14 @@ export class GameManager {
                                 case "skeleton":
                                     //this.audioManager.explosionSound.play();
 
-                                    this.decreaseLives();
+                                    this.decreaseHp(INGAME_OBJECT.getAttackValue());
                                     this.decreaseScoreBy(this.generateRandomNumber(50, 75));
 
                                     break;
                                 case "meat-soldier":
                                     //this.audioManager.hitSound.play();
 
-                                    this.decreaseLives();
+                                    this.decreaseHp(INGAME_OBJECT.getAttackValue());
                                     this.decreaseScoreBy(this.generateRandomNumber(25, 50));
                                     break;
                             }
@@ -253,13 +253,13 @@ export class GameManager {
                                     //this.audioManager.bonusSound.play();
                                     this.increaseScore();
                                     break;
-                                case "vida":
+                                case "hp":
                                     //this.audioManager.healthSound.play();
-                                    this.increaseLives();
+                                    this.increaseHp(INGAME_OBJECT.getBonus());
                                     break;
                                 case "clock":
                                     //this.audioManager.bonusSound.play();
-                                    this.increaseTime();
+                                    this.increaseTime(INGAME_OBJECT.getBonus());
                                     break;
                             }
                         }
@@ -276,7 +276,7 @@ export class GameManager {
                     console.log('cooldown iniciado ' + this.damageCooldown)
                     //this.audioManager.explosionSound.play();
 
-                    this.decreaseLives();
+                    this.decreaseHp();
                     this.decreaseScoreBy(this.generateRandomNumber(50, 75)); 
 
                     setTimeout((e) => {
@@ -292,7 +292,7 @@ export class GameManager {
                     console.log('cooldown iniciado ' + this.damageCooldown)
                     //this.audioManager.hitSound.play();
 
-                    this.decreaseLives();
+                    this.decreaseHp();
                     this.decreaseScoreBy(this.generateRandomNumber(25, 50)); 
 
 
@@ -316,7 +316,7 @@ export class GameManager {
                 break;
             case "vida":
                 //this.audioManager.healthSound.play();
-                this.increaseLives();
+                this.increasehealthPoints();
                 break;
             case "clock":
                 //this.audioManager.bonusSound.play();
@@ -340,15 +340,15 @@ export class GameManager {
         this.runner.activateInvencivility();
     }
 
-    decreaseLives() {
-        if (this.lives > 0) {
-            this.lives--;
+    decreaseHp(value) {
+        if (this.healthPoints > 0) {
+            this.healthPoints -= value;
         }
     }
 
-    increaseLives() {
-        if (this.lives > 0) {
-            this.lives++;
+    increaseHp(value) {
+        if (this.healthPoints > 0) {
+            this.healthPoints += value;
         }
     }
 

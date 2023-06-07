@@ -4,10 +4,12 @@ export class Skeleton extends GameObject {
 
     constructor() {
         super('skeleton', 'enemigo');
+
+        this.attackValue = 20;
     }
 
-    status() {
-        return this.gameElementDiv.getBoundingClientRect(); 
+    getAttackValue(){
+        return this.attackValue;
     }
     
     effect(runner) {
@@ -25,9 +27,5 @@ export class Skeleton extends GameObject {
 
             this.gameElementDiv.removeEventListener("animationend", () => {}); //libero el evento
         }); 
-    }
-
-    spawn(){
-        super.spawn()
     }
 }
