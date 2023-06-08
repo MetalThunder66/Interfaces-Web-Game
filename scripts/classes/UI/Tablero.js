@@ -1,3 +1,5 @@
+import { Invencivility } from "../powerups/Invencivility.js";
+
 export class Tablero {
 
     constructor() {
@@ -8,7 +10,7 @@ export class Tablero {
         this.scoreValue = document.getElementById("score-value");
         this.shieldValue = document.getElementById("escudo-value");
 
-        this.invencivilityDiv = document.getElementById("invencivility-bar");
+        this.shieldDiv = document.getElementById("shield-bar");
 
         //variables timeout e interval para manejar el div del escudo
         this.shieldInterval = null;
@@ -49,19 +51,24 @@ export class Tablero {
     }
     
     showShield(){ //muestra en el hud cuanto escudo le queda al runner
-        this.invencivilityDiv.classList.replace('hide', 'show');
+        if (!this.shieldDiv.classList.contains.show){
+            this.shieldDiv.classList.remove('hide');
+            this.shieldDiv.classList.add('show');
+        }
         
         this.giveShieldDuration();
 
         this.shieldTimeout = setTimeout(() => {
-            this.invencivilityDiv.classList.replace('show', 'hide');
-        }, 8000); //este time out va sincronizado con la duracion del shield, asi se oculta sincronizadamente
+            this.shieldDiv.classList.replace('show', 'hide');
+            clearInterval(this.shieldInterval); //cuanto termina el powerup, limpio el interval del timer del shield
+            
+        }, 9000); //este time out va sincronizado con la duracion del shield, asi se oculta sincronizadamente
     }
 
     updateShieldStatus(){ //si agarro un escudo ya teniendo el escudo activado, ejecuto esta funcion, reinicia el contador en 8 nuevamente
         clearInterval(this.shieldInterval);
         clearTimeout(this.shieldTimeout); 
-        showShield(); 
+        this.showShield(); 
     }
 
     updateTablero(hp, time, score){ //va actualizando los valores de vida y tiempo al momento de ser llamada la funcion

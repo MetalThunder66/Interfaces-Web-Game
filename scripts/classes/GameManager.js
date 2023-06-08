@@ -133,13 +133,11 @@ export class GameManager {
     }
 
     timerAndScore() {
-        //restar 1 segundo al tiempo restante
-        console.log(this.getTime());
+        //resta 1 segundo al tiempo restante
         this.decreaseTime();
 
         //ademas, sumo 100 puntos cada 1 segundo
         this.increaseScore(100);
-        console.log('score ' + this.score)
 
         //verificar si el tiempo restante ha llegado a cero
         if ((this.getTime()) <= 0) {
@@ -242,21 +240,24 @@ export class GameManager {
                                 console.log('cooldown finalizado ')
                             }, 2500);
 
-                        } else { //si pasa por aca es un objeto tipo bonus
-
-                            INGAME_OBJECT.effect(); //ejecuta la accion sobre el character cuando es un bonus
+                        } else if ((INGAME_OBJECT.getId() == 'powerup') &&
+                            (!this.runner.getPowerupCooldown())  /*&&
+                            (this.runner.getState() == "saltando") */) { //si pasa por aca es un objeto tipo bonus
+                            
+                            this.runner.activatePowerupCooldown();
+                            INGAME_OBJECT.effect(this.runner); //ejecuta la accion sobre el character cuando es un bonus
 
                             switch (INGAME_OBJECT.getType()) {
                                 case "shield":
                                     //this.audioManager.powerUpSound.play();
-                                        
-                                    if (!this.runner.getShieldStatus()){ //si no tengo escudo aun, si ya tengo va al else
-                                        this.giveRunnerInvencivility();
+
+                                    if (!this.runner.getShieldStatus()) { //si no tengo escudo aun, si ya tengo va al else
+                                        this.giveRunnerShield();
                                         this.tablero.showShield();
                                     } else {
                                         this.tablero.updateShieldStatus();
                                     }
-                                    
+
                                     break;
                                 case "puntaje":
                                     //this.audioManager.bonusSound.play();
@@ -271,6 +272,11 @@ export class GameManager {
                                     this.increaseTime(INGAME_OBJECT.getBonus());
                                     break;
                             }
+
+                            setTimeout((e) => {
+                                this.runner.deactivatePowerupCooldown();
+                                console.log('cooldown powerup finalizado ')
+                            }, 1000);
                         }
                     }
                 }
@@ -284,8 +290,8 @@ export class GameManager {
         return Math.floor(Math.floor(Math.random() * (max - min + 1)) + min); //genera un numero random entre mim y max inclusive
     }
 
-    giveRunnerInvencivility() {
-        this.runner.activateInvencivility();
+    giveRunnerShield() {
+        this.runner.activateShield();
     }
 
     decreaseHp(value) {

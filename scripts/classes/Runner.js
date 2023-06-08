@@ -9,7 +9,8 @@ export class Runner {
 
         //flags del runner
         this.shieldStatus = false; //power up invencible
-        this.coolDownFlag = false;  //variable para no recibir danio continuo
+        this.damageCoolDownFlag = false;  //variable para no recibir danio continuo
+        this.puCoolDownFlag = false; //para cuando toca el powerup agarrarlo una vez
 
     }
 
@@ -28,7 +29,11 @@ export class Runner {
     }
 
     getDamageCooldownFlag(){
-        return this.coolDownFlag;
+        return this.damageCoolDownFlag;
+    }
+
+    getPowerupCooldown(){
+        return this.puCoolDownFlag;
     }
 
     getHealthPoints(){
@@ -45,13 +50,21 @@ export class Runner {
     }
 
     activateDamageCooldown(){
-        this.coolDownFlag = true;
+        this.damageCoolDownFlag = true;
         this.runner.classList.add('correr-damage-cooldown');
     }
 
     deactivateDamageCooldown(){
-        this.coolDownFlag = false;
+        this.damageCoolDownFlag = false;
         this.runner.classList.remove('correr-damage-cooldown');
+    }
+
+    activatePowerupCooldown(){
+        this.puCoolDownFlag = true; 
+    }
+
+    deactivatePowerupCooldown(){
+        this.puCoolDownFlag = false; 
     }
 
     activateShield(){

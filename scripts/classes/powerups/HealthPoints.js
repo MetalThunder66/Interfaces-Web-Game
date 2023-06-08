@@ -9,10 +9,10 @@ export class HealthPoints extends GameObject {
     }
     
     effect(runner) {
-        this.gameElementDiv.classList.add('brillitos');
+        this.gameElementDiv.classList.add('explosion');
 
         this.gameElementDiv.addEventListener("animationend", () => {
-            this.gameElementDiv.classList.remove("brillitos");
+            this.gameElementDiv.classList.remove("explosion");
 
             this.isActive = false;
             this.gameElementDiv.remove(); //lo borra del dom cuando termina la animacion

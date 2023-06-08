@@ -16,7 +16,6 @@ export class ObjectPool { //pool de objetos powerups y enemigos para economizar 
     };
 
     fillPool(){
-        console.log('fill pool llamado')
         const OBJS_DISP = 4; //cantidad de enemigos y powerups en total, para usar con el randomizer
 
         //relleno el array con todos los objetos del juego disponibles, tanto enemigos como power ups. Objetos de referencia, no usa el objeto real
@@ -29,7 +28,6 @@ export class ObjectPool { //pool de objetos powerups y enemigos para economizar 
         
         for (let i = 0; i < this.maxSize; i++){ //relleno el pool de manera random usando el array de OBJS_DISP
             const OBJ_SELECTION = Math.floor(Math.random() * OBJS_DISP + 1); //genero un numero aleatorio. +1 para que no de 0.
-            console.log(OBJ_SELECTION)
             
             switch (OBJ_SELECTION) {
                 case 1:
