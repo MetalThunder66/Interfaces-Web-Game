@@ -132,6 +132,14 @@ export class GameManager {
         this.time--;
     }
 
+    decreaseTimeBy(number) { //decrementa el timer por un valor, el if corrige que no se vaya a negativo
+        if(this.time - number > 0){
+            this.time -= number;
+        } else {
+            this.time = 0;
+        } 
+    }
+
     timerAndScore() {
         //resta 1 segundo al tiempo restante
         this.decreaseTime();
@@ -168,7 +176,6 @@ export class GameManager {
 
     spawnObjects = () => { //generacion de objetos en la partida, funcion flecha para que el contexto se mantenga dentro de spawnObjects()
         //recojo algun objeto del pool object
-        console.log('ingameobjs ' + this.inGameObjs.length);
         if (this.inGameObjs.length != this.objectPool.getMaxSize()) { //mientras haya objetos del pool por spawnear
             let objetFromPool = this.objectPool.adquirirObjeto();
             objetFromPool.spawn(); //lo muestro en el juego
@@ -212,40 +219,53 @@ export class GameManager {
                     if ((this.characterCollision(RUNNER_STATUS, INGAME_OBJECT_STATUS))) {    //si el objeto colisiono con el character
 
                         if ((INGAME_OBJECT.getId() == 'enemigo') &&
-                            (!this.runner.getDamageCooldownFlag()) &&
-                            (this.runner.getState() == "corriendo")) { //si el objeto con el que interacciono es enemigo, ejecuto el siguiente bloque 
+                            (!this.runner.getDamageCooldownFlag()) /* &&
+                            (this.runner.getState() == "corriendo") */) { //si el objeto con el que interacciono es enemigo, ejecuto el siguiente bloque 
 
                             INGAME_OBJECT.effect(this.runner);    //ejecuta la accion sobre el character cuando es un enemigo
+                            
+                            if (!this.runner.getShieldStatus()){
+                                this.runner.activateDamageCooldown();
 
-                            this.runner.activateDamageCooldown();
-
+                                setTimeout((e) => {
+                                    this.runner.deactivateDamageCooldown();
+                                    console.log('cooldown finalizado ')
+                                }, 2500);
+                            }
+                            
                             switch (INGAME_OBJECT.getType()) {
                                 case "skeleton":
                                     //this.audioManager.explosionSound.play();
 
-                                    this.decreaseHp(INGAME_OBJECT.getAttackValue());
-                                    this.decreaseScoreBy(this.generateRandomNumber(50, 75));
-
+                                    if (!this.runner.getShieldStatus()){    //si no tiene escudo, se le resta puntos. Sino le suma
+                                        this.decreaseHp(INGAME_OBJECT.getAttackValue());
+                                        this.decreaseScoreBy(this.generateRandomNumber(50, 75));
+                                        this.decreaseTimeBy(4);
+                                    } else {
+                                        this.increaseScore(this.generateRandomNumber(50, 75));
+                                    }
                                     break;
                                 case "meat-soldier":
                                     //this.audioManager.hitSound.play();
-
-                                    this.decreaseHp(INGAME_OBJECT.getAttackValue());
-                                    this.decreaseScoreBy(this.generateRandomNumber(25, 50));
+                                    
+                                    if (!this.runner.getShieldStatus()){    //si no tiene escudo, se le resta puntos. Sino le suma
+                                        this.decreaseHp(INGAME_OBJECT.getAttackValue());
+                                        this.decreaseScoreBy(this.generateRandomNumber(25, 50));
+                                        this.decreaseTimeBy(2);
+                                    } else {
+                                        this.increaseScore(this.generateRandomNumber(25, 50));
+                                    }
                                     break;
                             }
 
-                            setTimeout((e) => {
-                                this.runner.deactivateDamageCooldown();
-                                console.log('cooldown finalizado ')
-                            }, 2500);
+                            
 
                         } else if ((INGAME_OBJECT.getId() == 'powerup') &&
                             (!this.runner.getPowerupCooldown())  /*&&
                             (this.runner.getState() == "saltando") */) { //si pasa por aca es un objeto tipo bonus
                             
                             this.runner.activatePowerupCooldown();
-                            INGAME_OBJECT.effect(this.runner); //ejecuta la accion sobre el character cuando es un bonus
+                            INGAME_OBJECT.effect(this.runner); //ejecuta la accion sobre el character 
 
                             switch (INGAME_OBJECT.getType()) {
                                 case "shield":
@@ -261,7 +281,7 @@ export class GameManager {
                                     break;
                                 case "puntaje":
                                     //this.audioManager.bonusSound.play();
-                                    this.increaseScore();
+                                    this.increaseScore(25);
                                     break;
                                 case "hp":
                                     //this.audioManager.healthSound.play();
@@ -275,7 +295,6 @@ export class GameManager {
 
                             setTimeout((e) => {
                                 this.runner.deactivatePowerupCooldown();
-                                console.log('cooldown powerup finalizado ')
                             }, 1000);
                         }
                     }

@@ -25,6 +25,8 @@ export class Tablero {
         this.tablero.classList.add('hidden');
     }
 
+    //seteadores de contenido de cada item del tablero
+
     setHealth(value){
         this.healthValue.innerHTML = value;
     }
@@ -41,12 +43,16 @@ export class Tablero {
         this.shieldValue.innerHTML = value + 's';
     }
 
-    giveShieldDuration(){
-        let value = 8;
+    giveShieldDuration(value){ //comienza el timer del shield con esta funcion
+        
+        this.setShield(value);
+        value--;
 
         this.shieldInterval = setInterval(() => {
             this.setShield(value);
-            value--;
+            if (value > 0){ //para que no vaya a negativo el timer
+                value--;
+            };
           }, 1000);
     }
     
@@ -55,13 +61,15 @@ export class Tablero {
             this.shieldDiv.classList.remove('hide');
             this.shieldDiv.classList.add('show');
         }
+
+        let value = 8;
         
-        this.giveShieldDuration();
+        this.giveShieldDuration(value);
 
         this.shieldTimeout = setTimeout(() => {
             this.shieldDiv.classList.replace('show', 'hide');
             clearInterval(this.shieldInterval); //cuanto termina el powerup, limpio el interval del timer del shield
-            
+
         }, 9000); //este time out va sincronizado con la duracion del shield, asi se oculta sincronizadamente
     }
 

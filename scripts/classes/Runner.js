@@ -69,11 +69,11 @@ export class Runner {
 
     activateShield(){
         this.shieldStatus = true;  
-        //this.runner.classList.add("shield"); 
+        this.runner.classList.add("shield-effect"); 
         
         setTimeout(() => {
             this.shieldStatus = false; 
-            this.runner.classList.remove("shield");
+            this.runner.classList.remove("shield-effect");
         }, 8000); //le quito el escudo luego de este tiempo
     }
 

@@ -240,9 +240,6 @@ div.item-text span {
     bottom: -110px;
     left: -150px;
     transform: scale(.4);
-    border-bottom-right-radius: 52%;
-    border-bottom-left-radius: 55%;
-    background-color: black;
 }
 
 .correr {
@@ -341,6 +338,10 @@ div.item-text span {
     100% {
         background-position: -7990px;
     }
+}
+
+.shield-effect{
+   background-color: aqua; 
 }
 
 /* enemigos */
