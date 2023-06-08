@@ -3,7 +3,7 @@ import { GameObject } from "../GameObject.js";
 export class Invencivility extends GameObject {
 
     constructor() {
-        super('invencivility', 'powerup');
+        super('shield', 'powerup');
     }
     
     effect(runner) {

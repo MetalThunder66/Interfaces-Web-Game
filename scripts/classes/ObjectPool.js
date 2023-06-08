@@ -1,10 +1,13 @@
 import { Skeleton } from "./enemigos/Skeleton.js";
 import { MeatSoldier } from "./enemigos/MeatSoldier.js";
+import { Clock } from "./powerups/Clock.js";
+import { Invencivility } from "./powerups/Invencivility.js";
+import { HealthPoints} from "./powerups/HealthPoints.js";
 
 export class ObjectPool { //pool de objetos powerups y enemigos para economizar recursos
     constructor() {
         this.pool = [];
-        this.maxSize = 10;
+        this.maxSize = 15;
         this.fillPool(); //al ser creado el pool, se rellena con objetos
     };
 
@@ -14,11 +17,15 @@ export class ObjectPool { //pool de objetos powerups y enemigos para economizar 
 
     fillPool(){
         console.log('fill pool llamado')
-        const OBJS_DISP = 2; //cantidad de enemigos y powerups en total, para usar con el randomizer
+        const OBJS_DISP = 4; //cantidad de enemigos y powerups en total, para usar con el randomizer
 
         //relleno el array con todos los objetos del juego disponibles, tanto enemigos como power ups. Objetos de referencia, no usa el objeto real
         //OBJS_DISP.push(new Skeleton());
         //OBJS_DISP.push(new MeatSoldier());
+
+        for (let y = 0; y < 2; y++){
+            this.mandarObjeto(new Invencivility()); //mando para que la pool tenga 2 shield solamente
+        }
         
         for (let i = 0; i < this.maxSize; i++){ //relleno el pool de manera random usando el array de OBJS_DISP
             const OBJ_SELECTION = Math.floor(Math.random() * OBJS_DISP + 1); //genero un numero aleatorio. +1 para que no de 0.
@@ -31,20 +38,20 @@ export class ObjectPool { //pool de objetos powerups y enemigos para economizar 
                 case 2:
                     this.mandarObjeto(new MeatSoldier())
                     break;
-                /* case "KienzanAttack":
-                    this.returnObjectToPool(new KienzanAttack());
+                 case 3:
+                    this.mandarObjeto(new Clock());
                     break;
-                case "TransformPowerUp":
-                    this.returnObjectToPool(new TransformPowerUp());
+                /* case 4:
+                    this.mandarObjeto(new Invencivility());
+                    break; */
+                case 4:
+                    this.mandarObjeto(new HealthPoints());
                     break;
-                case "DragonBall":
-                    this.returnObjectToPool(new DragonBall());
-                    break;
-                case "SenzuBean":
-                    this.returnObjectToPool(new SenzuBean());
+               /* case "SenzuBean":
+                    this.mandarObjeto(new SenzuBean());
                     break;
                 case "Clock":
-                    this.returnObjectToPool(new Clock());
+                    this.mandarObjeto(new Clock());
                     break; */
             }
             

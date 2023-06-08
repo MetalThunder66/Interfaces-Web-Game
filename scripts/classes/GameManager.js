@@ -15,7 +15,7 @@ export class GameManager {
         this.runner = new Runner();
 
         //tablero del jugador con puntaje, vidas, tiempo
-        //this.tablero = new Tablero();
+        this.tablero = new Tablero();
 
         //pool de objetos disponibles en el juego
         this.objectPool = new ObjectPool();
@@ -24,9 +24,9 @@ export class GameManager {
         //this.parallax = new Parallax(); activar cuando se inicia el juego o dejar animando cuando se esta en el menu?
 
         //propiedades del juego
-        this.score = -100;
+        this.score = 0;
         this.time = 30; //medido en segundos
-        this.healthPoints = 100;
+        //this.healthPoints = 100;
         this.creationInterval = 2000; //medido en milisegundos
 
         //intervals
@@ -57,7 +57,7 @@ export class GameManager {
     }
 
     getHealthPoints() {
-        return this.healthPoints;
+        return this.runner.getHealthPoints();
     }
 
     getScore() {
@@ -79,6 +79,7 @@ export class GameManager {
 
         console.log('valor interval ' + this.creationInterval)
 
+        this.tablero.showTablero();
         //muestra el tiempo restante en el juego 
 
         // mostar en el html el puntaje
@@ -98,6 +99,7 @@ export class GameManager {
 
     inGameLoop() {
         this.checkCollision(); //chequeo colisiones
+        this.tablero.updateTablero(this.runner.getHealthPoints(), this.time, this.score); //actualiza la informacion del tablero
     }
 
     static destroyInstance() {  //metodo para destruir la instancia
@@ -122,14 +124,14 @@ export class GameManager {
     }
 
     //TEMPORIZADOR
-     increaseTime(value) {
+    increaseTime(value) {
         this.time += value;
     }
 
     decreaseTime() { //decrementa el timer en 1, se llama una vez cada segundo
         this.time--;
     }
-   
+
     timerAndScore() {
         //restar 1 segundo al tiempo restante
         console.log(this.getTime());
@@ -242,12 +244,19 @@ export class GameManager {
 
                         } else { //si pasa por aca es un objeto tipo bonus
 
-                            INGAME_OBJECT.effect(this.runner); //ejecuta la accion sobre el character cuando es un bonus
+                            INGAME_OBJECT.effect(); //ejecuta la accion sobre el character cuando es un bonus
 
                             switch (INGAME_OBJECT.getType()) {
-                                case "invencivility":
+                                case "shield":
                                     //this.audioManager.powerUpSound.play();
-                                    this.giveRunnerInvencivility();
+                                        
+                                    if (!this.runner.getShieldStatus()){ //si no tengo escudo aun, si ya tengo va al else
+                                        this.giveRunnerInvencivility();
+                                        this.tablero.showShield();
+                                    } else {
+                                        this.tablero.updateShieldStatus();
+                                    }
+                                    
                                     break;
                                 case "puntaje":
                                     //this.audioManager.bonusSound.play();
@@ -267,67 +276,6 @@ export class GameManager {
                 }
             }
         }
-        /* switch (INGAME_OBJECT.getType()) {
-            case "skeleton":
-                
-                if ((this.damageCooldown == false) && (this.runner.getState == "corriendo")) {
-
-                    this.damageCooldown = true;
-                    console.log('cooldown iniciado ' + this.damageCooldown)
-                    //this.audioManager.explosionSound.play();
-
-                    this.decreaseHp();
-                    this.decreaseScoreBy(this.generateRandomNumber(50, 75)); 
-
-                    setTimeout((e) => {
-                        this.damageCooldown = false;
-                        console.log('cooldown finalizado ' + this.damageCooldown)
-                    }, 4000);
-                }
-                break;
-            case "meat-soldier":
-                if (this.damageCooldown != true) {
-
-                    this.damageCooldown = true;
-                    console.log('cooldown iniciado ' + this.damageCooldown)
-                    //this.audioManager.hitSound.play();
-
-                    this.decreaseHp();
-                    this.decreaseScoreBy(this.generateRandomNumber(25, 50)); 
-
-
-                    console.log('danio recibido')
-
-                    setTimeout((e) => {
-                        this.damageCooldown = false;
-                        console.log('cooldown finalizado ' + this.damageCooldown)
-                    }, 4000);
-                    // }
-                }
-                break;
-
-            case "invencivility":
-                //this.audioManager.powerUpSound.play();
-                this.giveRunnerInvencivility();
-                break;
-            case "puntaje":
-                //this.audioManager.bonusSound.play();
-                this.increaseScore();
-                break;
-            case "vida":
-                //this.audioManager.healthSound.play();
-                this.increasehealthPoints();
-                break;
-            case "clock":
-                //this.audioManager.bonusSound.play();
-                this.increaseTime();
-                break;
-        }
-    }
-}
-}
-} else console.log('aun no hay objetos') */
-
     };
 
     //Otros métodos y propiedades del GameManager//
@@ -341,14 +289,14 @@ export class GameManager {
     }
 
     decreaseHp(value) {
-        if (this.healthPoints > 0) {
-            this.healthPoints -= value;
+        if (this.runner.getHealthPoints() > 0) {
+            this.runner.setHealthPoints(-value);
         }
     }
 
     increaseHp(value) {
-        if (this.healthPoints > 0) {
-            this.healthPoints += value;
+        if (this.runner.getHealthPoints() > 0) {
+            this.runner.setHealthPoints(value);
         }
     }
 
@@ -361,9 +309,6 @@ export class GameManager {
     }
 
     increaseScore(number) {
-        /*if (this.score < this.maxScore) {
-            this.score += 1;
-        }*/
         this.score += number;
     }
 

@@ -13,7 +13,7 @@ export class Skeleton extends GameObject {
     }
     
     effect(runner) {
-        if ((!runner.getInvisiviltyStatus()) && (!runner.getDamageCooldownFlag())) {     //si no tiene invensivilidad, el runner recibe danio
+        if ((!runner.getShieldStatus()) && (!runner.getDamageCooldownFlag())) {     //si no tiene invensivilidad, el runner recibe danio
             runner.damaged();     //jugador recibe danio 
         } 
 

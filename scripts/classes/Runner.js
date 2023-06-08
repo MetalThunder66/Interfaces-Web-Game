@@ -1,13 +1,16 @@
 export class Runner {
 
     constructor() {
-        this.state = "corriendo"; //si esta corriendo, saltando, cayendo o recibiendo danio
-
-        this.invencivilityStatus = false; //power up invencible
-        this.coolDownFlag = false;  //variable para no recibir danio continuo
-
         //captura del personaje
         this.runner = document.getElementById("personaje");
+
+        this.state = "corriendo"; //si esta corriendo, saltando, cayendo o recibiendo danio
+        this.healthPoints = 100;
+
+        //flags del runner
+        this.shieldStatus = false; //power up invencible
+        this.coolDownFlag = false;  //variable para no recibir danio continuo
+
     }
 
     //runner puede tener un hidden cuando se esta en el menu, a la hora de instanciar el juego quitarselo asi se puede ver, de fondo del menu se ve el paralax normalmente
@@ -20,12 +23,25 @@ export class Runner {
         return this.state;
     }
 
-    getInvisiviltyStatus(){
-        return this.invencivilityStatus;
+    getShieldStatus(){
+        return this.shieldStatus;
     }
 
     getDamageCooldownFlag(){
         return this.coolDownFlag;
+    }
+
+    getHealthPoints(){
+        return this.healthPoints;
+    }
+
+    setHealthPoints(value){
+        if(this.healthPoints + value < 100){
+            this.healthPoints += value;
+        } else {
+            this.healthPoints = 100;   
+        }
+        
     }
 
     activateDamageCooldown(){
@@ -38,17 +54,18 @@ export class Runner {
         this.runner.classList.remove('correr-damage-cooldown');
     }
 
-    activateInvencivility(){
-        this.invencivilityStatus = true;   
+    activateShield(){
+        this.shieldStatus = true;  
+        //this.runner.classList.add("shield"); 
         
         setTimeout(() => {
-            this.invencivilityStatus = false; 
-            this.runner.classList.remove("invencivility");
-        }, 8000); //le quito la invisivilidad luego de este tiempo
+            this.shieldStatus = false; 
+            this.runner.classList.remove("shield");
+        }, 8000); //le quito el escudo luego de este tiempo
     }
 
     damaged(){
-        if ((!this.getInvisiviltyStatus()) && (!this.getDamageCooldownFlag())){ //si invisivility es falso
+        if ((!this.getShieldStatus()) && (!this.getDamageCooldownFlag())){ //si el escudo es falso
             if (this.state == "corriendo") { 
 
                 this.state = "atacado";  

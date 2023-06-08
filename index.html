@@ -11,6 +11,26 @@
 </head>
 
 <body>
+    <div id='tablero-jugador' class='hidden'>
+        <div class="tablero-item">
+            <img class="ui-icon hearth" src="/images/UI/health.png" alt="corazon">
+            <img class="" src="/images/UI/healthBar.png" alt="barra de vida">
+            <div class="item-text">VIDA: <span id="vida-value">100</span></div>
+          </div>
+          <div class="tablero-item">
+            <img class="ui-icon timer" src="/images/UI/timer.png" alt="timer">
+            <img class="" src="/images/UI/timerBar.png" alt="barra de tiempo">
+            <div class="item-text">TIEMPO: <span id="tiempo-value"></span></div>
+          </div>
+          <div class="tablero-item hidden show" id="shield-bar">
+            <img class="ui-icon shield" src="/images/UI/shield.png" alt="shield">
+            <img class="" src="/images/UI/shieldBar.png" alt="barra de escudo">
+            <div class="item-text">ESCUDO: <span id="escudo-value"></span></div>
+          </div>
+          <div class="">
+            <div class="score">SCORE: <span id="score-value"></span></div>
+          </div> 
+    </div>
 
     <div id="contenedor">
         <div class="parallax">

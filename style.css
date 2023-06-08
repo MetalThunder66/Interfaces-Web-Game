@@ -88,6 +88,150 @@ body {
     }
 }
 
+/* UI */
+
+#tablero-jugador {
+    display: flex;
+}
+
+.tablero-item {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    width: 28vh;
+    height: 10vh;
+    scale: .22;
+    position: relative;
+    left: 2vh;
+}
+
+.ui-icon {
+    scale: .7;
+    position: inherit;
+    animation: power-up-beat 1s infinite;
+}
+
+.ui-icon.hearth {
+    top: 12vh;
+    left: 33vh;
+}
+
+.ui-icon.timer {
+    top: 9vh;
+    left: 33vh;
+}
+
+.ui-icon.shield {
+    top: 8vh;
+    left: 33vh;
+}
+
+.item-text,
+div.item-text span {
+    position: absolute;
+    top: 34vh;
+    left: 104%;
+    transform: translate(-50%, -50%);
+    /* centra el texto en el centro del contenedor */
+    color: #fff;
+    font-size: 60pt;
+}
+
+div.item-text span {
+    left: 27vh;
+    top: 50%;
+}
+
+#tiempo-value {
+    left: 37vh;
+}
+
+/* escudo */
+
+#escudo-value {
+    left: 39vh;
+}
+
+#shield-bar {
+    /* oculto el estado del escudo cuando se inicia el juego */
+    opacity: 0;
+}
+
+/* animaciones para cuando se activa y desactiva el escudo */
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.hidden {
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+.hidden.show {
+    animation-name: fadeIn;
+}
+
+.hidden.hide {
+    animation-name: fadeOut;
+}
+
+/* escudo end*/
+
+.score {
+    color: white;
+    top: 17vh;
+    position: absolute;
+    font-size: larger;
+    background-color: black;
+    padding: 12px;
+    border-radius: 10px;
+}
+
+/* powerups */
+
+#powerup {
+    position: absolute;
+    top: 44vh; /* 35 y 44 para random */
+    width: 265px;
+    scale: .2;
+    z-index: 1;
+    animation: power-up-beat 1s infinite, movimiento-pantalla 25s forwards;
+}
+
+.clock{
+    background: url('images/powerups/timer.png') no-repeat;
+    height: 270px;    
+}
+
+.hp{
+    background: url('images/powerups/health.png') no-repeat; 
+    height: 270px;  
+}
+
+.shield{
+    background: url('images/powerups/shield.png') no-repeat; 
+    height: 300px;  
+}
+
+/* runner */
+
 #personaje {
     position: fixed;
     width: 570px;
@@ -178,7 +322,7 @@ body {
     50% {
         opacity: 1;
     }
-    
+
     100% {
         opacity: 0;
     }
@@ -198,6 +342,8 @@ body {
         background-position: -7990px;
     }
 }
+
+/* enemigos */
 
 #enemigo {
     position: absolute;
@@ -274,22 +420,18 @@ body {
     }
 }
 
-.power-up-icon {
-    position: absolute;
-    z-index: 1;
-    width: 50px;
-    height: 50px;
-    animation: power-up-beat 1s infinite;
-  }
+
 
 @keyframes power-up-beat {
     0% {
-      transform: scale(1.2);
+        transform: scale(1.2);
     }
+
     50% {
-      transform: scale(1.5);
+        transform: scale(1.5);
     }
+
     100% {
-      transform: scale(1.2);
+        transform: scale(1.2);
     }
-  }
+}

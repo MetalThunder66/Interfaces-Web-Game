@@ -1,4 +1,5 @@
 import { GameObject } from "../GameObject.js";
+import { Runner } from "../Runner.js";
 
 export class MeatSoldier extends GameObject {
 
@@ -13,7 +14,7 @@ export class MeatSoldier extends GameObject {
     }
     
     effect(runner) {
-        if ((!runner.getInvisiviltyStatus()) && (!runner.getDamageCooldownFlag())) {     //si no tiene invensivilidad, el runner recibe danio
+        if ((!runner.getShieldStatus()) && (!runner.getDamageCooldownFlag())) {     //si no tiene invensivilidad, el runner recibe danio
             runner.damaged();     //el jugador recibe danio
    
         } 

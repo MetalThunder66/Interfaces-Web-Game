@@ -21,11 +21,8 @@ export class Clock extends GameObject {
         }); 
     }
 
-    spawn(){
-        super.spawn()
-    }
-
     getBonus(){
+        console.log(this.value = this.randomValue(5, 10))
         return this.value = this.randomValue(5, 10); //este metodo retornara cuanto tiempo se adicionara entre 5 y 10
     }
 }
