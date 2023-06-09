@@ -207,8 +207,7 @@ div.item-text span {
 /* powerups */
 
 #powerup {
-    position: absolute;
-    top: 44vh; /* 35 y 44 para random */
+    position: absolute; 
     width: 265px;
     scale: .2;
     z-index: 1;
@@ -358,18 +357,18 @@ div.item-text span {
     bottom: -218px;
     background: url("images/enemies/skeleton/skeleton.png") repeat-x;
     animation: movimiento-pantalla 18s forwards, animacion-skeleton .20s steps(13) infinite;
-    /*par el enemigo uso 2 animaciones, una para el movimiento y otra para el sprite */
+    /*para el enemigo uso 2 animaciones, una para el movimiento y otra para el sprite */
 }
 
 @keyframes movimiento-pantalla {
     0% {
         left: 100vw;
-        /* Posición inicial en el lado derecho */
+        /*posición inicial en el lado derecho */
     }
 
     100% {
         left: -150vw;
-        /* Posición final en el lado izquierdo */
+        /*posición final en el lado izquierdo */
     }
 }
 
@@ -420,8 +419,6 @@ div.item-text span {
         background-position: -15795px;
     }
 }
-
-
 
 @keyframes power-up-beat {
     0% {

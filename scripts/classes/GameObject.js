@@ -1,10 +1,12 @@
 export class GameObject {
-    static cantidadObjetos = 0; //es un contador que lleva la cantidad de objetos creados, para saber luego q div borrar mas facil
+    //static cantidadObjetos = 0; //es un contador que lleva la cantidad de objetos creados, para saber luego q div borrar mas facil
 
     constructor(tipo, idObjeto) {
         this.type = tipo;
         //this.spawnPositions = [];      //puede aparecer en estas posiciones
         this.isActive = false;   //variable para saber si el objeto esta insertado en el DOM
+
+        //this.spawnPositions = [35, 44];  //puede aparecer dentro de estas posiciones de top. solo para powerups
 
         //GameObject.cantidadObjetos++;
         //console.log('cant objs ' + GameObject.cantidadObjetos)
@@ -40,11 +42,19 @@ export class GameObject {
         return this.gameElementDiv.dataset.number;
     }*/
 
+    setRandomTop(){
+        this.gameElementDiv.style.top = this.randomValue(36, 48) + 'vh'; //le seteo valores random de top antes de spawnear
+    }
+
     spawn() {
+        //posicion random de top para powerups
+        if (this.gameElementDiv.id == 'powerup'){
+            this.setRandomTop();
+        }
+        
         document.getElementById("contenedor").appendChild(this.gameElementDiv);
         this.isActive = true; //convierto en true ya que ya aparecio en pantalla
-        //en items si quiero posicion random ponerlo aca, en su respectivo powerup
-
+        
         let removeFromDOM = (e) =>{
             const DIV_A_BORRAR = this.gameElementDiv;
 
@@ -72,4 +82,6 @@ export class GameObject {
     randomValue(min, max) {
         return Math.floor(Math.floor(Math.random() * (max - min + 1)) + min); //genera un valor random entre mim y max inclusive, para usarse en los powerups
     }
+
+    
 }
