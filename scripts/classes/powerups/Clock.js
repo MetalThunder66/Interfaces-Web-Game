@@ -23,7 +23,4 @@ export class Clock extends GameObject {
     getBonus(){
         return this.value = this.randomValue(5, 10); //este metodo retornara cuanto tiempo se adicionara entre 5 y 10
     }
-
-    
-
 }

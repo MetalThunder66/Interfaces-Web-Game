@@ -25,8 +25,7 @@ export class GameManager {
 
         //propiedades del juego
         this.score = 0;
-        this.time = 30; //medido en segundos
-        //this.healthPoints = 100;
+        this.time = 40; //medido en segundos
         this.creationInterval = 2000; //medido en milisegundos
 
         //intervals

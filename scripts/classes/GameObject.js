@@ -1,19 +1,12 @@
 export class GameObject {
-    //static cantidadObjetos = 0; //es un contador que lleva la cantidad de objetos creados, para saber luego q div borrar mas facil
-
     constructor(tipo, idObjeto) {
         this.type = tipo;
-        //this.spawnPositions = [];      //puede aparecer en estas posiciones
+
         this.isActive = false;   //variable para saber si el objeto esta insertado en el DOM
-
-        //this.spawnPositions = [35, 44];  //puede aparecer dentro de estas posiciones de top. solo para powerups
-
-        //GameObject.cantidadObjetos++;
-        //console.log('cant objs ' + GameObject.cantidadObjetos)
 
         this.gameContainer = document.querySelector(".contenedor");
 
-        this.gameElementDiv = document.createElement("div");    //crea un elemento div por cada gameObject pero todavia no lo inserta
+        this.gameElementDiv = document.createElement("div"); //crea un elemento div por cada gameObject pero todavia no lo inserta
 
         this.gameElementDiv.id = idObjeto; //id segun el tipo de objeto que sea
 
@@ -36,11 +29,6 @@ export class GameObject {
     getIsActive() {     //retorna si el objeto se encuentra en el DOM o no
         return this.isActive;
     }
-
-    /*
-    getDivNumber(){
-        return this.gameElementDiv.dataset.number;
-    }*/
 
     setRandomTop(){
         this.gameElementDiv.style.top = this.randomValue(36, 48) + 'vh'; //le seteo valores random de top antes de spawnear
@@ -71,17 +59,12 @@ export class GameObject {
         this.gameElementDiv.addEventListener("animationend", removeFromDOM); //elimino el objeto del dom cuando ya no es mas visible al terminar la animacion
     }
 
-    
-
     effect(runner) {
         return; //Abstracto// Realiza una accion sobre el jugador dependiendo del objeto, sea enemigo o powerup
     }
 
-    //añadir metodos para posiciones random de los powerups?
-
-    randomValue(min, max) {
-        return Math.floor(Math.floor(Math.random() * (max - min + 1)) + min); //genera un valor random entre mim y max inclusive, para usarse en los powerups
+    randomValue(min, max) { //genera un valor random entre mim y max inclusive
+        return Math.floor(Math.floor(Math.random() * (max - min + 1)) + min); 
     }
-
     
 }

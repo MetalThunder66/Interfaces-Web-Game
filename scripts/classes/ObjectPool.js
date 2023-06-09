@@ -16,18 +16,15 @@ export class ObjectPool { //pool de objetos powerups y enemigos para economizar 
     };
 
     fillPool(){
-        const OBJS_DISP = 4; //cantidad de enemigos y powerups en total, para usar con el randomizer
+        const ENEMI_DISP = 2; //cantidad de enemigos en total, para usar con el randomizer
 
-        //relleno el array con todos los objetos del juego disponibles, tanto enemigos como power ups. Objetos de referencia, no usa el objeto real
-        //OBJS_DISP.push(new Skeleton());
-        //OBJS_DISP.push(new MeatSoldier());
-
-        for (let y = 0; y < 2; y++){
-            this.mandarObjeto(new Invencivility()); //mando para que la pool tenga 2 shield solamente
-        }
+        //mando una cantidad fija de powerups al pool. 1 por cada uno. para que los powerups tengan mas rareza de spawnear
+        this.mandarObjeto(new Clock());
+        this.mandarObjeto(new HealthPoints());
+        this.mandarObjeto(new Invencivility());
         
-        for (let i = 0; i < this.maxSize; i++){ //relleno el pool de manera random usando el array de OBJS_DISP
-            const OBJ_SELECTION = Math.floor(Math.random() * OBJS_DISP + 1); //genero un numero aleatorio. +1 para que no de 0.
+        for (let i = 0; i < this.maxSize; i++){ //relleno el pool de manera random usando el array de ENEMI_DISP
+            const OBJ_SELECTION = Math.floor(Math.random() * ENEMI_DISP + 1); //genero un numero aleatorio. +1 para que no de 0.
             
             switch (OBJ_SELECTION) {
                 case 1:
@@ -36,27 +33,15 @@ export class ObjectPool { //pool de objetos powerups y enemigos para economizar 
                 case 2:
                     this.mandarObjeto(new MeatSoldier())
                     break;
-                 case 3:
-                    this.mandarObjeto(new Clock());
-                    break;
-                /* case 4:
-                    this.mandarObjeto(new Invencivility());
-                    break; */
-                case 4:
-                    this.mandarObjeto(new HealthPoints());
-                    break;
                /* case "SenzuBean":
                     this.mandarObjeto(new SenzuBean());
                     break;
                 case "Clock":
                     this.mandarObjeto(new Clock());
                     break; */
-            }
-            
-            
+            }  
         };
         console.log(this.pool)
-        
     };
 
     // Función para tomar un objeto del pool
