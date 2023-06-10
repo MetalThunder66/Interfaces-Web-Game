@@ -14,8 +14,6 @@ export class Runner {
 
     }
 
-    //runner puede tener un hidden cuando se esta en el menu, a la hora de instanciar el juego quitarselo asi se puede ver, de fondo del menu se ve el paralax normalmente
-
     status() {
         return this.runner.getBoundingClientRect(); //retorna la posicion actual del elemento en coordenadas y otros datos
     }
@@ -45,8 +43,11 @@ export class Runner {
             this.healthPoints += value;
         } else {
             this.healthPoints = 100;   
-        }
-        
+        } 
+    }
+
+    showRunner(){
+        this.runner.classList.add('show');
     }
 
     activateDamageCooldown(){
@@ -94,8 +95,6 @@ export class Runner {
             }
         }    
     }
-
-    
 
     correr() {
         this.state == "corriendo";

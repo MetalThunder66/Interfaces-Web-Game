@@ -79,10 +79,7 @@ export class GameManager {
         console.log('valor interval ' + this.creationInterval)
 
         this.tablero.showTablero();
-        //muestra el tiempo restante en el juego 
-
-        // mostar en el html el puntaje
-        //MOSTRAR en html el el div con puntaje y tiempo vida etc
+        this.runner.showRunner();
     }
 
     update() {

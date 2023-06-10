@@ -47,46 +47,57 @@
   </div>
 
   <div id="main-menu" class="menu hidden">
-    
+
     <div class="menu-button">
       <div id="jugar-button">Jugar</div>
     </div>
 
     <div class="menu-button">
-      <div id="instrucciones">Controles</div>
+      <div id="controls-button">Controles</div>
     </div>
 
     <div class="instrucciones">
-      <div>
+      <div class="como-jugar hidden">
         <h3>Como Jugar</h3>
-        <p>Consigue tantos puntos puedas! El juego termina si el tiempo se termina o la vida de tu personaje llega a 0
+        <p>Consigue tantos puntos puedas! El juego termina si el tiempo o la vida de tu personaje llega a 0
         </p>
         <div>
           <h4>Powerups</h4>
           <p>Estos items te daran beneficios si los agarras</p>
           <p>
-            <img class="ui-icon" height="36px" width="36px" src="images/UI/timer.png" alt="">
+            <img class="ui-icon" height="36px" width="36px" src="images/UI/timer.png" alt="timer icon">
             <span>+Tiempo</span>
           </p>
           <p>
-            <img class="ui-icon" height="36px" width="36px" src="images/UI/health.png" alt="">
+            <img class="ui-icon" height="36px" width="36px" src="images/UI/health.png" alt="health icon">
             <span>Recuperas Vida</span>
           </p>
           <p>
-            <img class="ui-icon" height="40px" width="36px" src="images/UI/shield.png" alt="">
+            <img class="ui-icon" height="40px" width="36px" src="images/UI/shield.png" alt="shield icon">
             <span>Obtienes invencibilidad</span>
           </p>
         </div>
         <div>
           <h4>Enemigos</h4>
           <p>
-            <img class="ui-icon" height="60px" width="65px" src="images/UI/skeleton-icon.png" alt="">
-            <img class="ui-icon" height="50px" width="45px" src="images/UI/meatsoldier-icon.png" alt="">
+            <img class="ui-icon" height="60px" width="65px" src="images/UI/skeleton-icon.png" alt="skeleton icon">
+            <img class="ui-icon" height="50px" width="45px" src="images/UI/meatsoldier-icon.png"
+              alt="meat soldier icon">
           </p>
           <p>Evitalos a toda costa! Le quitaran vida a tu personaje</p>
         </div>
       </div>
+
+      <div id="controls-menu" class="controles hidden">
+        <h3>Controles</h3>
+        <img src="images/UI/arrowup.png">
+        <p>Usa la flecha para arriba para Saltar</p>
+        <!-- <img src="images/UI/spacebar.png">
+        <p>Usa la Barra Espaciadora para Atacar</p> -->
+      </div>
     </div>
+
+
   </div>
 
   <script type="module" src="scripts/classes/GameManager.js"></script>

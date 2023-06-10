@@ -1,5 +1,3 @@
-import { Invencivility } from "../powerups/Invencivility.js";
-
 export class Tablero {
 
     constructor() {
@@ -18,11 +16,12 @@ export class Tablero {
     }
 
     showTablero(){
-        this.tablero.classList.remove('hidden');
+        this.tablero.classList.remove('hide');
+        this.tablero.classList.add('show');
     }
 
     hideTablero(){
-        this.tablero.classList.add('hidden');
+        this.tablero.classList.replace('show','hide');
     }
 
     //seteadores de contenido de cada item del tablero

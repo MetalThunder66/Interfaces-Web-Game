@@ -125,6 +125,20 @@ h3, h4{
     font-size: 16pt;
 }
 
+.controles{
+    position: absolute;
+    opacity: 0;
+    top: 6%;
+    left: 5%;
+    height: 90%;
+    width: 90%;
+    background-color: trasparent;
+}
+
+.controles>img{
+   padding-left: 15px; 
+}
+
 .menu-button{
     position: relative;
     top: -37%;
@@ -144,10 +158,13 @@ h3, h4{
     color: #fff;
 }
 
+
+
 /* UI */
 
 #tablero-jugador {
     display: flex;
+    opacity: 0;
 }
 
 .tablero-item {
@@ -288,13 +305,19 @@ div.item-text span {
 /* runner */
 
 #personaje {
+    opacity: 0;
     position: fixed;
-    width: 570px;
+    width: 620px;
     height: 740px;
     z-index: 1;
     bottom: -110px;
     left: -150px;
     transform: scale(.4);
+    
+}
+
+#personaje.show{
+    opacity: 1;
 }
 
 .correr {
@@ -395,8 +418,11 @@ div.item-text span {
     }
 }
 
-.shield-effect{
-   background-color: aqua; 
+.shield-effect{ /* efecto de escudo para el personaje */
+    box-shadow: 0 0 60px 60px rgba(182, 44, 242, 0.5);
+    background-color:rgba(182, 44, 242, 0.4);
+    border-radius: 80%;
+    
 }
 
 /* enemigos */
