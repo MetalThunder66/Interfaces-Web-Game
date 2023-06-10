@@ -219,6 +219,28 @@ div.item-text span {
     left: 37vh;
 }
 
+.game-status{ /* para las barras de vida tiempo y escudo */
+    height: 35vh;
+    top: -28px;
+    left: 94px;
+    width: 68vh; /* con este width mis barras de estado estan al maximo */
+    position: absolute;
+    border-radius: 10px 47% 47% 40px;
+    transition: width 0.8s ease; /* para animar el width cuando este cambie */
+}
+
+/* .game-status.vida{
+    width: 68vh;
+}
+
+.game-status.tiempo{
+    width: 68vh;   
+}
+    
+.game-status.escudo{
+    width: 68vh;   
+} */
+
 /* escudo */
 
 #escudo-value {
@@ -487,8 +509,8 @@ div.item-text span {
 .explosion {
     background: url("images/enemies/explosion.png") repeat-x;
     animation: explotar .6s steps(13) forwards;
-    left: -20vw;
-    bottom: -12.5vw;
+    left: -17vw;
+    bottom: -10.5vw;
     scale: 1.3;
 }
 

@@ -9,8 +9,6 @@ export class Menu {
     }
 
     showHideControls(){ //si aprieto en controles, oculto las instrucciones de como jugar y muestro los controles
-        console.log(this.comoJugar)
-        console.log(this.comoJugar)
         if (this.controlsBtnDiv.innerHTML == 'Controles'){
             this.comoJugar.classList.add('hide');
             this.controlsMenu.classList.remove('hide');

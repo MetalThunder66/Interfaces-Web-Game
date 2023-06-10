@@ -3,11 +3,18 @@ export class Tablero {
     constructor() {
         this.tablero = document.getElementById("tablero-jugador");
 
+        //captura de las 3 barras de estado: vida, tiempo y escudo
+        this.healthState = document.getElementById("health-state");
+        this.timeState = document.getElementById("timer-state");
+        this.shieldState = document.getElementById("shield-state");
+
+        //captura de cada estado y score para modificar su contenido
         this.healthValue = document.getElementById("vida-value");
         this.timerValue = document.getElementById("tiempo-value");
         this.scoreValue = document.getElementById("score-value");
         this.shieldValue = document.getElementById("escudo-value");
 
+        //div del shield en el UI
         this.shieldDiv = document.getElementById("shield-bar");
 
         //variables timeout e interval para manejar el div del escudo
@@ -26,31 +33,34 @@ export class Tablero {
 
     //seteadores de contenido de cada item del tablero
 
-    setHealth(value){
-        this.healthValue.innerHTML = value;
+    setHealth(health){
+        this.healthValue.innerHTML = health;
     }
 
-    setTimer(value){
-        this.timerValue.innerHTML = value + 's';
+    setTimer(time){
+        this.timerValue.innerHTML = time + 's';
     }
 
-    setScore(value){
-        this.scoreValue.innerHTML = value;
+    setScore(score){
+        this.scoreValue.innerHTML = score;
     }
 
-    setShield(value){
-        this.shieldValue.innerHTML = value + 's';
+    setShield(duration){
+        this.shieldValue.innerHTML = duration + 's';
     }
 
-    giveShieldDuration(value){ //comienza el timer del shield con esta funcion
-        
-        this.setShield(value);
-        value--;
+    giveShieldDuration(duration){ //comienza el timer del shield con esta funcion   
+        this.setShield(duration);
+        this.showBarStatus(duration, 8, this.shieldState); //voy actualizando la barra de escudo segun cuanto tiempo activo le quede
+
+        duration--;
 
         this.shieldInterval = setInterval(() => {
-            this.setShield(value);
-            if (value > 0){ //para que no vaya a negativo el timer
-                value--;
+            this.setShield(duration);
+            this.showBarStatus(duration, 8, this.shieldState);
+
+            if (duration > 0){ //para que no vaya a negativo el timer
+                duration--;
             };
           }, 1000);
     }
@@ -61,9 +71,9 @@ export class Tablero {
             this.shieldDiv.classList.add('show');
         }
 
-        let value = 8;
+        let duration = 8;
         
-        this.giveShieldDuration(value);
+        this.giveShieldDuration(duration);
 
         this.shieldTimeout = setTimeout(() => {
             this.shieldDiv.classList.replace('show', 'hide');
@@ -78,11 +88,25 @@ export class Tablero {
         this.showShield(); 
     }
 
-    updateTablero(hp, time, score){ //va actualizando los valores de vida y tiempo al momento de ser llamada la funcion
+    updateTablero(hp, time, score){ //va actualizando los valores de vida y tiempo al momento de ser llamada la funcion asi como tambien su barra en el UI
         this.setHealth(hp);
+        this.showBarStatus(hp, 100, this.healthState)
         this.setTimer(time);
+        this.showBarStatus(time, 60, this.timeState)
         this.setScore(score);
+        
 
+    }
+
+    showBarStatus(value, maxValue, elemento){
+        var valorActual = value;
+        var valorMaximo = maxValue;
+        var barraStatus = elemento;
+
+        var porcentajeBarra = (valorActual / valorMaximo) * 100; //calcula el porcentaje del elemento actual
+        var anchoBarra = (porcentajeBarra / 100) * 68; //calcula el ancho deseado en relación al total de la barra cuando esta llena, en este caso 68vh
+
+        barraStatus.style.width = anchoBarra + 'vh'; //aplica el ancho a la barra del elemento
     }
 
 

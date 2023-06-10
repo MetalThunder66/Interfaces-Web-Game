@@ -25,7 +25,7 @@ export class GameManager {
 
         //propiedades del juego
         this.score = 0;
-        this.time = 40; //medido en segundos
+        this.time = 60; //medido en segundos. Si se cambia aqui el valor, actualizarlo en tablero/updateTablero()
         this.creationInterval = 2000; //medido en milisegundos
 
         //intervals
@@ -75,9 +75,9 @@ export class GameManager {
     render() {
         //crea intervalo de creacion de enemigos
         this.idIntervalspawn = setInterval(this.spawnObjects, this.creationInterval);
-
         console.log('valor interval ' + this.creationInterval)
 
+        //muestro tablero y runner
         this.tablero.showTablero();
         this.runner.showRunner();
     }
@@ -309,9 +309,13 @@ export class GameManager {
         this.runner.activateShield();
     }
 
-    decreaseHp(value) {
-        if (this.runner.getHealthPoints() > 0) {
+    decreaseHp(value) { 
+        let actualHp = this.runner.getHealthPoints();
+
+        if(actualHp - value > 0){ //para no ir a vida negativa
             this.runner.setHealthPoints(-value);
+        } else {
+            this.runner.setHealthPoints(-actualHp);
         }
     }
 
@@ -322,7 +326,7 @@ export class GameManager {
     }
 
     decreaseScoreBy(number) {
-        if (this.score >= number) {     //para no ir a score negativo
+        if(this.score - number > 0) {     //para no ir a score negativo
             this.score -= number;
         } else {
             this.score = 0;

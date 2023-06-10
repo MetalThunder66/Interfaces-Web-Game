@@ -19,9 +19,13 @@ export class ObjectPool { //pool de objetos powerups y enemigos para economizar 
         const ENEMI_DISP = 2; //cantidad de enemigos en total, para usar con el randomizer
 
         //mando una cantidad fija de powerups al pool. 1 por cada uno. para que los powerups tengan mas rareza de spawnear
-        this.mandarObjeto(new Clock());
+        for (let index = 0; index < 2; index++) {
+            this.mandarObjeto(new Clock());
         this.mandarObjeto(new HealthPoints());
         this.mandarObjeto(new Invencivility());
+            
+        }
+        
         
         for (let i = 0; i < this.maxSize; i++){ //relleno el pool de manera random usando el array de ENEMI_DISP
             const OBJ_SELECTION = Math.floor(Math.random() * ENEMI_DISP + 1); //genero un numero aleatorio. +1 para que no de 0.

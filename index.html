@@ -14,20 +14,23 @@
   <div id='tablero-jugador' class='hidden'>
     <div class="tablero-item">
       <img class="ui-icon hearth" src="/images/UI/health.png" alt="corazon">
-      <img class="" src="/images/UI/healthBar.png" alt="barra de vida">
+      <img src="/images/UI/healthBar.png" alt="barra de vida">
+      <img class="game-status vida" id="health-state" src="/images/UI/healthState.png">
       <div class="item-text">VIDA: <span id="vida-value">100</span></div>
     </div>
     <div class="tablero-item">
       <img class="ui-icon timer" src="/images/UI/timer.png" alt="timer">
-      <img class="" src="/images/UI/timerBar.png" alt="barra de tiempo">
+      <img src="/images/UI/timerBar.png" alt="barra de tiempo">
+      <img class="game-status tiempo" id="timer-state" src="/images/UI/timeState.png">
       <div class="item-text">TIEMPO: <span id="tiempo-value"></span></div>
     </div>
-    <div class="tablero-item hidden" id="shield-bar">
+    <div class="tablero-item hidden" id="shield-bar"> <!-- SACAR EL SHOW DE ACA DESPUES -->
       <img class="ui-icon shield" src="/images/UI/shield.png" alt="shield">
-      <img class="" src="/images/UI/shieldBar.png" alt="barra de escudo">
+      <img src="/images/UI/shieldBar.png" alt="barra de escudo">
+      <img class="game-status escudo" id="shield-state" src="/images/UI/shieldState.png">
       <div class="item-text">ESCUDO: <span id="escudo-value"></span></div>
     </div>
-    <div class="">
+    <div>
       <div class="score">SCORE: <span id="score-value"></span></div>
     </div>
   </div>
@@ -60,6 +63,7 @@
       <div class="como-jugar hidden">
         <h3>Como Jugar</h3>
         <p>Consigue tantos puntos puedas! El juego termina si el tiempo o la vida de tu personaje llega a 0
+          <img class="ui-icon" height="55px" width="70px" src="images/UI/dead.png" alt="death icon">
         </p>
         <div>
           <h4>Powerups</h4>
@@ -74,15 +78,14 @@
           </p>
           <p>
             <img class="ui-icon" height="40px" width="36px" src="images/UI/shield.png" alt="shield icon">
-            <span>Obtienes invencibilidad</span>
+            <span>Obtienes invencibilidad y no recibes dano</span>
           </p>
         </div>
         <div>
           <h4>Enemigos</h4>
           <p>
-            <img class="ui-icon" height="60px" width="65px" src="images/UI/skeleton-icon.png" alt="skeleton icon">
-            <img class="ui-icon" height="50px" width="45px" src="images/UI/meatsoldier-icon.png"
-              alt="meat soldier icon">
+            <img class="ui-icon" height="60px" width="70px" src="images/UI/skeleton-icon.png" alt="skeleton icon">
+            <img class="ui-icon" height="50px" width="50px" src="images/UI/meatsoldier-icon.png" alt="meat soldier icon">
           </p>
           <p>Evitalos a toda costa! Le quitaran vida a tu personaje</p>
         </div>
