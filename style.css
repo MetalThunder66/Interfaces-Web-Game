@@ -88,6 +88,62 @@ body {
     }
 }
 
+/* MENU */
+
+p{
+    margin:  10px 10% 2% 5%;
+    
+}
+
+h3, h4{
+    margin-top: 15px;
+    margin-left: 5%;
+    margin-bottom: 5px; 
+}
+
+.menu, .instrucciones{
+    display: flex;
+    position: absolute;
+    background-color: rgba(63, 66, 69, 0.7);
+    width: 50%;
+    height: 75%;
+    margin-left: 25%;
+    margin-right: 25%;
+    border-radius: 25px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 16pt;
+    
+}
+
+.instrucciones{
+    font-family: Arial, Helvetica, sans-serif;
+    height: 70%;
+    width: 90%;
+    top: 25%;
+    font-size: 16pt;
+}
+
+.menu-button{
+    position: relative;
+    top: -37%;
+    margin: 5px;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: rgb(147, 224, 75);
+    
+    
+}
+
+.menu-button:hover{
+    cursor: pointer;
+    border: 1px solid white;
+    background-color: rgb(31, 31, 31);
+    color: #fff;
+}
+
 /* UI */
 
 #tablero-jugador {
@@ -406,7 +462,7 @@ div.item-text span {
     background: url("images/enemies/explosion.png") repeat-x;
     animation: explotar .6s steps(13) forwards;
     left: -20vw;
-    bottom: -12vw;
+    bottom: -12.5vw;
     scale: 1.3;
 }
 

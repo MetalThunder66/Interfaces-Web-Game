@@ -2,52 +2,95 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animacion</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animacion</title>
 
-    <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div id='tablero-jugador' class='hidden'>
-        <div class="tablero-item">
-            <img class="ui-icon hearth" src="/images/UI/health.png" alt="corazon">
-            <img class="" src="/images/UI/healthBar.png" alt="barra de vida">
-            <div class="item-text">VIDA: <span id="vida-value">100</span></div>
-          </div>
-          <div class="tablero-item">
-            <img class="ui-icon timer" src="/images/UI/timer.png" alt="timer">
-            <img class="" src="/images/UI/timerBar.png" alt="barra de tiempo">
-            <div class="item-text">TIEMPO: <span id="tiempo-value"></span></div>
-          </div>
-          <div class="tablero-item hidden" id="shield-bar">
-            <img class="ui-icon shield" src="/images/UI/shield.png" alt="shield">
-            <img class="" src="/images/UI/shieldBar.png" alt="barra de escudo">
-            <div class="item-text">ESCUDO: <span id="escudo-value"></span></div>
-          </div>
-          <div class="">
-            <div class="score">SCORE: <span id="score-value"></span></div>
-          </div> 
+  <div id='tablero-jugador' class='hidden'>
+    <div class="tablero-item">
+      <img class="ui-icon hearth" src="/images/UI/health.png" alt="corazon">
+      <img class="" src="/images/UI/healthBar.png" alt="barra de vida">
+      <div class="item-text">VIDA: <span id="vida-value">100</span></div>
+    </div>
+    <div class="tablero-item">
+      <img class="ui-icon timer" src="/images/UI/timer.png" alt="timer">
+      <img class="" src="/images/UI/timerBar.png" alt="barra de tiempo">
+      <div class="item-text">TIEMPO: <span id="tiempo-value"></span></div>
+    </div>
+    <div class="tablero-item hidden" id="shield-bar">
+      <img class="ui-icon shield" src="/images/UI/shield.png" alt="shield">
+      <img class="" src="/images/UI/shieldBar.png" alt="barra de escudo">
+      <div class="item-text">ESCUDO: <span id="escudo-value"></span></div>
+    </div>
+    <div class="">
+      <div class="score">SCORE: <span id="score-value"></span></div>
+    </div>
+  </div>
+
+  <div id="contenedor">
+    <div class="parallax">
+      <div class="parallax-layer background-layer-5"></div>
+      <div class="parallax-layer background-layer-4"></div>
+      <div class="parallax-layer background-layer-3"></div>
+      <div class="parallax-layer background-layer-2"></div>
+      <div class="parallax-layer background-layer-1"></div>
+    </div>
+    <div id="personaje" class="correr"></div>
+    <div id="piso"></div>
+
+    <!-- <div id="enemigo" class="meat-soldier"></div> -->
+  </div>
+
+  <div id="main-menu" class="menu hidden">
+    
+    <div class="menu-button">
+      <div id="jugar-button">Jugar</div>
     </div>
 
-    <div id="contenedor">
-        <div class="parallax">
-            <div class="parallax-layer background-layer-5"></div>
-            <div class="parallax-layer background-layer-4"></div>
-            <div class="parallax-layer background-layer-3"></div>
-            <div class="parallax-layer background-layer-2"></div>
-            <div class="parallax-layer background-layer-1"></div>
+    <div class="menu-button">
+      <div id="instrucciones">Controles</div>
+    </div>
+
+    <div class="instrucciones">
+      <div>
+        <h3>Como Jugar</h3>
+        <p>Consigue tantos puntos puedas! El juego termina si el tiempo se termina o la vida de tu personaje llega a 0
+        </p>
+        <div>
+          <h4>Powerups</h4>
+          <p>Estos items te daran beneficios si los agarras</p>
+          <p>
+            <img class="ui-icon" height="36px" width="36px" src="images/UI/timer.png" alt="">
+            <span>+Tiempo</span>
+          </p>
+          <p>
+            <img class="ui-icon" height="36px" width="36px" src="images/UI/health.png" alt="">
+            <span>Recuperas Vida</span>
+          </p>
+          <p>
+            <img class="ui-icon" height="40px" width="36px" src="images/UI/shield.png" alt="">
+            <span>Obtienes invencibilidad</span>
+          </p>
         </div>
-        <div id="personaje" class="correr"></div>
-        <div id="piso"></div>
-
-        <!-- <div id="enemigo" class="meat-soldier"></div> -->
+        <div>
+          <h4>Enemigos</h4>
+          <p>
+            <img class="ui-icon" height="60px" width="65px" src="images/UI/skeleton-icon.png" alt="">
+            <img class="ui-icon" height="50px" width="45px" src="images/UI/meatsoldier-icon.png" alt="">
+          </p>
+          <p>Evitalos a toda costa! Le quitaran vida a tu personaje</p>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <script type="module" src="scripts/classes/GameManager.js"></script>
-    <script type="module" src="scripts/main.js"></script>
+  <script type="module" src="scripts/classes/GameManager.js"></script>
+  <script type="module" src="scripts/main.js"></script>
 </body>
 
 </html>
