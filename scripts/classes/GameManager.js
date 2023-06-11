@@ -1,6 +1,7 @@
 import { ObjectPool } from "./ObjectPool.js";
 import { Runner } from "./Runner.js";
 import { Tablero } from "./UI/Tablero.js";
+import { Menu } from "./UI/Menu.js";
 
 export class GameManager {
     constructor() {
@@ -11,8 +12,11 @@ export class GameManager {
 
         // Inicializo aquí los atributos del GameManager
 
-        //spawneo al jugador
+        //capturo al runner
         this.runner = new Runner();
+
+        //muestro el menu principal
+        this.menu = new Menu(); 
 
         //tablero del jugador con puntaje, vidas, tiempo
         this.tablero = new Tablero();
@@ -21,11 +25,10 @@ export class GameManager {
         this.objectPool = new ObjectPool();
 
         //this.audioManager = new AudioManager();
-        //this.parallax = new Parallax(); activar cuando se inicia el juego o dejar animando cuando se esta en el menu?
 
         //propiedades del juego
         this.score = 0;
-        this.time = 60; //medido en segundos. Si se cambia aqui el valor, actualizarlo en tablero/updateTablero()
+        this.time = 4; //medido en segundos. Si se cambia aqui el valor, actualizarlo en tablero/updateTablero()
         this.creationInterval = 2000; //medido en milisegundos
 
         //intervals
@@ -35,7 +38,7 @@ export class GameManager {
         this.temporizadorInterval = null;
 
         //flags
-        //this.damageCooldown = false;
+        this.endGameFlag = false;
 
         //objetos en pantalla
         this.inGameObjs = [];
@@ -43,11 +46,6 @@ export class GameManager {
         //por defecto inicia la musica
         //this.audioManager.music.play();
 
-        //muestra al character
-        //this.runner.classList.remove('hidden');
-
-        //pongo a escuchar los controles del juego
-        this.inputListener();
     }
 
     //GETERS
@@ -73,16 +71,27 @@ export class GameManager {
 
     //METODOS PRINCIPALES DEL GAME MANAGER
     render() {
+
+        //muestro al runner
+        this.runner.showRunner();
+
+        //oculto menu principal
+        this.menu.hideMenus();
+
         //crea intervalo de creacion de enemigos
         this.idIntervalspawn = setInterval(this.spawnObjects, this.creationInterval);
         console.log('valor interval ' + this.creationInterval)
 
         //muestro tablero y runner
         this.tablero.showTablero();
-        this.runner.showRunner();
+        
     }
 
     update() {
+
+        //pongo a escuchar los controles del juego
+        this.inputListener();
+
         //no me reconocia las funciones y daba error, encontre de solucion ponerle .bind(this)
         this.gameLoopInterval = setInterval(this.inGameLoop.bind(this), 30);
 
@@ -94,11 +103,22 @@ export class GameManager {
     }
 
     inGameLoop() {
-        this.checkCollision(); //chequeo colisiones
-        this.tablero.updateTablero(this.runner.getHealthPoints(), this.time, this.score); //actualiza la informacion del tablero
+        if (this.endGameFlag == false){ //siempre y cuando el juego no haya terminado
+            this.checkCollision(); //chequeo colisiones
+            this.tablero.updateTablero(this.runner.getHealthPoints(), this.time, this.score); //actualiza la informacion del tablero
+            this.checkEndgame(); //chequeo el fin de juego
+
+        } else { //sino, muestro la pantalla de fin de juego y mato instancia del singleton
+            this.tablero.hideTablero();
+            this.menu.showGameOverMenu(this.score);
+            
+            this.destroyInstance();
+
+        }
+        
     }
 
-    static destroyInstance() {  //metodo para destruir la instancia
+    destroyInstance() {  //metodo para destruir la instancia
         GameManager.instance = null;
     }
 
@@ -335,6 +355,15 @@ export class GameManager {
 
     increaseScore(number) {
         this.score += number;
+    }
+
+    checkEndgame(){
+        if (this.time == 0 || this.runner.getHealthPoints() <= 0) {    //si termino el tiempo o el personaje se queda sin vida, finaliza el juego
+            this.runner.deathAnimation();
+            //this.audioManager.music.pause();
+            //this.audioManager.loseSound.play();
+            this.endGameFlag = true;
+        }
     }
 
 

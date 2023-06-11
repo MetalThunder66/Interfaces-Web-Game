@@ -24,7 +24,7 @@
       <img class="game-status tiempo" id="timer-state" src="/images/UI/timeState.png">
       <div class="item-text">TIEMPO: <span id="tiempo-value"></span></div>
     </div>
-    <div class="tablero-item hidden" id="shield-bar"> <!-- SACAR EL SHOW DE ACA DESPUES -->
+    <div class="tablero-item hidden" id="shield-bar"> 
       <img class="ui-icon shield" src="/images/UI/shield.png" alt="shield">
       <img src="/images/UI/shieldBar.png" alt="barra de escudo">
       <img class="game-status escudo" id="shield-state" src="/images/UI/shieldState.png">
@@ -49,8 +49,10 @@
     <!-- <div id="enemigo" class="meat-soldier"></div> -->
   </div>
 
+  <!-- menu pincipal como jugar y controls -->
   <div id="main-menu" class="menu hidden">
 
+    <!-- botones del  menu -->
     <div class="menu-button">
       <div id="jugar-button">Jugar</div>
     </div>
@@ -59,6 +61,7 @@
       <div id="controls-button">Controles</div>
     </div>
 
+    <!-- seccion de como jugar -->
     <div class="instrucciones">
       <div class="como-jugar hidden">
         <h3>Como Jugar</h3>
@@ -67,7 +70,7 @@
         </p>
         <div>
           <h4>Powerups</h4>
-          <p>Estos items te daran beneficios si los agarras</p>
+          <p>Estos items te darán beneficios si los agarras</p>
           <p>
             <img class="ui-icon" height="36px" width="36px" src="images/UI/timer.png" alt="timer icon">
             <span>+Tiempo</span>
@@ -78,7 +81,7 @@
           </p>
           <p>
             <img class="ui-icon" height="40px" width="36px" src="images/UI/shield.png" alt="shield icon">
-            <span>Obtienes invencibilidad y no recibes dano</span>
+            <span>Obtienes invencibilidad. Destruyes a los enemigos automaticamente obteniendo puntos por cada uno de ellos. Eres ininputable</span>
           </p>
         </div>
         <div>
@@ -87,11 +90,12 @@
             <img class="ui-icon" height="60px" width="70px" src="images/UI/skeleton-icon.png" alt="skeleton icon">
             <img class="ui-icon" height="50px" width="50px" src="images/UI/meatsoldier-icon.png" alt="meat soldier icon">
           </p>
-          <p>Evitalos a toda costa! Le quitaran vida a tu personaje</p>
+          <p>Evitalos a toda costa! Le quitaran <span class="span-rojo">vida</span> y <span class="span-amarillo">tiempo</span> a tu personaje</p>
         </div>
       </div>
 
-      <div id="controls-menu" class="controles hidden">
+      <!-- menu de controles -->
+      <div id="controls-menu" class="controles hidden"> <!-- hidden -->
         <h3>Controles</h3>
         <img src="images/UI/arrowup.png">
         <p>Usa la flecha para arriba para Saltar</p>
@@ -100,6 +104,27 @@
       </div>
     </div>
 
+    <!-- menu de fin de juego -->
+    <div id="end-game" class="menu hidden">
+      <img class="game-over-img" src="./images/UI/gameOver.png" alt="game over">
+
+      <!-- score jugador fin de partida -->
+      <div>
+        <h2>TU SCORE</h2>
+        <h1 class="score-game-over">6000</h1>
+      </div>
+      
+      <div class="endgame-btn-div">
+          <!-- botones de fin de juego -->
+          <div class="menu-button">
+            <div id="volver-btn">Ir al Menu</div>
+          </div>
+
+          <div class="menu-button">
+            <div id="juego-nuevo-btn">Jugar de nuevo</div>
+          </div>
+      </div>
+  </div>
 
   </div>
 

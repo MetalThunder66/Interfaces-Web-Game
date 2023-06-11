@@ -129,7 +129,10 @@ export class Runner {
     clean() {
         this.runner.classList.remove("correr"); 
         this.runner.classList.remove("saltar");
-        this.runner.classList.remove("caer");  
+        this.runner.classList.remove("caer");
+        this.runner.classList.remove("atacar") 
+        this.runner.classList.remove("muerto");
+        this.runner.classList.remove("muerte"); 
 
         this.runner.removeEventListener("animationend", () => {}); 
     } 
@@ -139,9 +142,19 @@ export class Runner {
         this.runner.classList.add("atacar");
 
         this.runner.addEventListener("animationend", () => {
-            this.runner.classList.remove("atacar");
-
-            this.runner.removeEventListener("animationend", () => {}); 
+            this.clean();
+            this.correr();
         }); 
+    }
+
+    deathAnimation(){
+        this.state == "dead";
+        this.runner.classList.remove("correr"); 
+        this.runner.classList.add("muerte");
+
+        this.runner.addEventListener("animationend", () => {
+            this.clean(); 
+            this.runner.classList.add("muerto");
+        });     
     }
 }

@@ -92,7 +92,7 @@ export class Tablero {
         this.setHealth(hp);
         this.showBarStatus(hp, 100, this.healthState)
         this.setTimer(time);
-        this.showBarStatus(time, 60, this.timeState)
+        this.showBarStatus(time, 40, this.timeState)
         this.setScore(score);
         
 
