@@ -47,6 +47,10 @@ export class Runner {
     }
 
     showRunner(){
+        if (this.runner.classList.contains("hide")) {
+            this.runner.classList.replace('hide', 'correr');
+        }
+
         this.runner.classList.add('show');
     }
 
@@ -116,6 +120,7 @@ export class Runner {
             });
         }
     }
+    
     caer() {
         this.state == "cayendo";
         this.clean();
@@ -131,7 +136,6 @@ export class Runner {
         this.runner.classList.remove("saltar");
         this.runner.classList.remove("caer");
         this.runner.classList.remove("atacar") 
-        this.runner.classList.remove("muerto");
         this.runner.classList.remove("muerte"); 
 
         this.runner.removeEventListener("animationend", () => {}); 
@@ -154,7 +158,7 @@ export class Runner {
 
         this.runner.addEventListener("animationend", () => {
             this.clean(); 
-            this.runner.classList.add("muerto");
+            this.runner.classList.add("hide"); 
         });     
     }
 }

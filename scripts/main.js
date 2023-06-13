@@ -7,17 +7,23 @@ import { Menu } from './classes/UI/Menu.js';
 const jugarBtn = document.getElementById('jugar-button');
 const juegoNuevoBtn = document.getElementById('juego-nuevo-btn');
 
-const gameManager = new GameManager(); //creo instancia unica de juego
+//muestro el menu principal
+const gameMenu = new Menu(); 
 
-//const menu = new Menu(); //muestro el menu
+//gameMenu.gameOverMenuIgnore(); 
 
 jugarBtn.addEventListener('click', empezarJuego);
 juegoNuevoBtn.addEventListener('click', empezarJuego);
 
-
 function empezarJuego(){
-    //menu.hideMenus();
-    gameManager.render();
-    gameManager.update();
+    //creo instancia unica de juego
+    const gameManager = new GameManager();
+
+    //oculto el menu principal
+    gameMenu.hideMenus();
+
+    //inicio el juego en mi game manager
+    gameManager.iniciarJuego();
 }
+
 

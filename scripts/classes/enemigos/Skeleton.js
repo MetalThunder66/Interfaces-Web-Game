@@ -23,7 +23,7 @@ export class Skeleton extends GameObject {
             this.gameElementDiv.classList.remove("explosion");
 
             this.isActive = false;
-            this.gameElementDiv.remove(); //lo borra del dom cuando termina la animacion
+            this.gameElementDiv.remove(); //lo borra del dom cuando termina la animacion de explosion
 
             this.gameElementDiv.removeEventListener("animationend", () => {}); //libero el evento
         }); 

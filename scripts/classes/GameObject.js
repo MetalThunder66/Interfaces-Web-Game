@@ -49,8 +49,7 @@ export class GameObject {
             //verifica por las dudas para prevenir errores
             if (DIV_A_BORRAR) {
                 //elimina el div
-                this.gameElementDiv.remove();
-                this.isActive = false;
+                this.removeElementFromDom(); 
             }    
             
             this.gameElementDiv.removeEventListener("animationend", removeFromDOM); //lo elimina del DOM y cierra el listener
@@ -65,6 +64,11 @@ export class GameObject {
 
     randomValue(min, max) { //genera un valor random entre mim y max inclusive
         return Math.floor(Math.floor(Math.random() * (max - min + 1)) + min); 
+    }
+
+    removeElementFromDom(){
+        this.gameElementDiv.remove();
+        this.isActive = false;
     }
     
 }

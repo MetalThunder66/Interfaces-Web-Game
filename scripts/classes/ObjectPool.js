@@ -8,7 +8,7 @@ export class ObjectPool { //pool de objetos powerups y enemigos para economizar 
     constructor() {
         this.pool = [];
         this.maxSize = 15;
-        this.fillPool(); //al ser creado el pool, se rellena con objetos
+        //this.fillPool(); //al ser creado el pool, se rellena con objetos
     };
 
     resetObject() {
@@ -21,9 +21,8 @@ export class ObjectPool { //pool de objetos powerups y enemigos para economizar 
         //mando una cantidad fija de powerups al pool. 1 por cada uno. para que los powerups tengan mas rareza de spawnear
         for (let index = 0; index < 2; index++) {
             this.mandarObjeto(new Clock());
-        this.mandarObjeto(new HealthPoints());
-        this.mandarObjeto(new Invencivility());
-            
+            this.mandarObjeto(new HealthPoints());
+            this.mandarObjeto(new Invencivility()); 
         }
         
         
@@ -75,5 +74,13 @@ export class ObjectPool { //pool de objetos powerups y enemigos para economizar 
 
     getMaxSize(){
         return this.maxSize;
+    }
+
+    getSize(){
+        return this.pool.length;
+    }
+
+    cleanPool(){
+        this.pool.splice(0, this.getSize());
     }
 }

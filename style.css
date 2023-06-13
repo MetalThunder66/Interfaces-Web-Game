@@ -123,6 +123,7 @@ h4 {
     align-items: center;
     justify-content: center;
     font-size: 15pt;
+    z-index: 5;
 
 }
 
@@ -167,14 +168,14 @@ h4 {
 }
 
 #end-game{
-    opacity: 0;
     display: flex;
     flex-direction: column;
-    width: 60vh;
+    width: 50%;
     height: 75vh;
     align-items: center;
     justify-content: space-between;
-    pointer-events: none;
+    opacity: 0;
+    z-index: 4;
 }
 
 .score-game-over{
@@ -350,7 +351,7 @@ div.item-text span {
 /* runner */
 
 #personaje {
-    /* opacity: 0; */
+    opacity: 0; 
     position: absolute;
     width: 620px;
     height: 740px;
@@ -551,9 +552,9 @@ div.item-text span {
 
 .explosion {
     background: url("images/enemies/explosion.png") repeat-x;
-    animation: explotar .6s steps(13) forwards;
-    left: -17vw;
-    bottom: -10.5vw;
+    animation: explotar .6s steps(13) infinite;
+    left: -20vw;
+    height: 820px;
     scale: 1.3;
 }
 

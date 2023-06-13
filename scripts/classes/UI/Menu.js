@@ -15,34 +15,50 @@ export class Menu {
         
         //events listeners
         this.controlsBtn.addEventListener('click', this.showHideControls.bind(this));
-        //this.volverMenuBtn.addEventListener('click', this.showHideControls.bind(this));
-        //this.juegoNuevoBtn.addEventListener('click', this.showHideControls.bind(this));
-
+        this.volverMenuBtn.addEventListener('click', this.backToMainMenu.bind(this));
     }
 
     showHideControls(){ //si aprieto en controles, oculto las instrucciones de como jugar y muestro los controles
         if (this.controlsBtn.innerHTML == 'Controles'){
-            this.comoJugar.classList.add('hide');
+            //oculto instrucciones
+            this.comoJugar.classList.replace('show', 'hide');
+
+            //muestro controles
             this.controlsMenu.classList.remove('hide');
-            this.controlsMenu.classList.add('show');
+            this.controlsMenu.classList.add('show'); 
+
+            //cambio contenido del boton
             this.controlsBtn.innerHTML = 'Como Jugar';
+
         } else {
-            this.comoJugar.classList.replace('hide', 'show');
+            //si ya estoy en los controles, los oculto
             this.controlsMenu.classList.replace('show', 'hide');
+            
+            //y muestro las instrucciones
+            this.comoJugar.classList.remove('hide');
+            this.comoJugar.classList.add('show');
+
+            //cambio contenido del boton
             this.controlsBtn.innerHTML = 'Controles'; 
         }  
     }
 
-    hideMenus(){
-        this.mainMenu.classList.add('hide');
-        this.gameOverMenu.classList.replace('show', 'hide');
-        //this.gameOverMenu.classList.add ('hide');
+    backToMainMenu(){
+        this.gameOverMenu.style.zIndex = '4';
+        this.gameOverMenu.classList.replace('show', 'hide'); 
+        this.mainMenu.classList.replace('hide', 'show');   
     }
 
-    showGameOverMenu(score){
-        //remover pointer-events: none; de clase .end-game
-        this.gameOverMenu.classList.add('show');
-        this.playerScore.innerHTML = score;
+    /* gameOverMenuIgnore(){
+        this.gameOverMenu.style.pointerEvents = 'none';
+    } */
+
+    hideMenus(){
+        //this.mainMenu.style.visibility = 'hidden';
+        this.mainMenu.classList.add('hide');
+        this.gameOverMenu.classList.remove('show');
+        this.gameOverMenu.classList.remove('hide');
+       
     }
     
 
