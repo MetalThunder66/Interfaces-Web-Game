@@ -72,13 +72,14 @@ export class Runner {
         this.puCoolDownFlag = false; 
     }
 
-    activateShield(){
+    activateShield(shieldOverSound){
         this.shieldStatus = true;  
         this.runner.classList.add("shield-effect"); 
         
         setTimeout(() => {
             this.shieldStatus = false; 
             this.runner.classList.remove("shield-effect");
+            shieldOverSound.play();
         }, 8000); //le quito el escudo luego de este tiempo
     }
 

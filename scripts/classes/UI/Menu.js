@@ -1,9 +1,9 @@
 import { AudioManager } from "../AudioManager.js";
 
 export class Menu {
+    //variable para los sonidos y musica del menu
 
     constructor() {
-        //variable para los sonidos y musica del menu
         this.menuSounds = new AudioManager();
 
         //captura de menu principal y secundario
@@ -16,11 +16,10 @@ export class Menu {
         this.gameOverMenu = document.getElementById('end-game');
         this.volverMenuBtn = document.getElementById('volver-btn');
         this.juegoNuevoBtn = document.getElementById('juego-nuevo-btn');
-        //this.playerScore = document.querySelector('.score-game-over');
-        
+
         //events listeners
         this.controlsBtn.addEventListener('click', this.showHideControls.bind(this));
-        
+
         this.controlsBtn.addEventListener('mouseover', () => {
             this.menuSounds.buttonHover.play(); //reproduce sonido cuando el mouse pasa sobre el boton
         });
@@ -33,16 +32,16 @@ export class Menu {
 
     }
 
-    showHideControls(){ //si aprieto en controles, oculto las instrucciones de como jugar y muestro los controles
+    showHideControls() { //si aprieto en controles, oculto las instrucciones de como jugar y muestro los controles
         this.menuSounds.buttonSound.play(); //reproduzco el sonido al apretar un boton
 
-        if (this.controlsBtn.innerHTML == 'Controles'){
+        if (this.controlsBtn.innerHTML == 'Controles') {
             //oculto instrucciones
             this.comoJugar.classList.replace('show', 'hide');
 
             //muestro controles
             this.controlsMenu.classList.remove('hide');
-            this.controlsMenu.classList.add('show'); 
+            this.controlsMenu.classList.add('show');
 
             //cambio contenido del boton
             this.controlsBtn.innerHTML = 'Como Jugar';
@@ -50,37 +49,47 @@ export class Menu {
         } else {
             //si ya estoy en los controles, los oculto
             this.controlsMenu.classList.replace('show', 'hide');
-            
+
             //y muestro las instrucciones
             this.comoJugar.classList.remove('hide');
             this.comoJugar.classList.add('show');
 
             //cambio contenido del boton
-            this.controlsBtn.innerHTML = 'Controles'; 
-        }  
+            this.controlsBtn.innerHTML = 'Controles';
+        }
     }
 
-    backToMainMenu(){
+    backToMainMenu() {
         //reproduzco sonido de boton y el theme del menu
         this.menuSounds.buttonSound.play();
-        
+        this.menuSounds.menu_theme.play();
 
         this.gameOverMenu.style.zIndex = '4';
-        this.gameOverMenu.classList.replace('show', 'hide'); 
-        this.mainMenu.classList.replace('hide', 'show');   
+        this.gameOverMenu.classList.replace('show', 'hide');
+        this.mainMenu.classList.replace('hide', 'show');
     }
 
-    /* gameOverMenuIgnore(){
-        this.gameOverMenu.style.pointerEvents = 'none';
-    } */
-
-    hideMenus(){
-        //this.mainMenu.style.visibility = 'hidden';
+    hideMenus() {
         this.mainMenu.classList.add('hide');
         this.gameOverMenu.classList.remove('show');
         this.gameOverMenu.classList.remove('hide');
-       
+
     }
-    
+
+    playMenuTheme() {
+        this.menuSounds.menu_theme.play();
+
+        this.menuSounds.menu_theme.addEventListener('ended', () => { //listener para reproducir el menu theme indefinidamente. Cuando termina, inicia nuevamente
+            this.menuSounds.menu_theme.play(); 
+          });
+    }
+
+    stopMenuTheme() {
+        this.menuSounds.menu_theme.pause();
+    }
+
+    hoverButtonSound() {
+        this.menuSounds.buttonHover.play();
+    }
 
 }

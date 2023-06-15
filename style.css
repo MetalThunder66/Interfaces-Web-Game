@@ -247,7 +247,6 @@ div.item-text span {
     top: 34vh;
     left: 104%;
     transform: translate(-50%, -50%);
-    /* centra el texto en el centro del contenedor */
     color: #fff;
     font-size: 60pt;
 }
