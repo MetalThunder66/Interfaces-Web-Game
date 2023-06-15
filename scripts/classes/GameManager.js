@@ -1,7 +1,7 @@
 import { ObjectPool } from "./ObjectPool.js";
 import { Runner } from "./Runner.js";
 import { Tablero } from "./UI/Tablero.js";
-import { Menu } from "./UI/Menu.js";
+import { AudioManager } from "./AudioManager.js";
 
 export class GameManager {
     constructor() {
@@ -20,7 +20,8 @@ export class GameManager {
         //pool de objetos disponibles en el juego
         this.objectPool = new ObjectPool();
 
-        //this.audioManager = new AudioManager();
+        //creo objeto encargado de los sonidos
+        this.audioManager = new AudioManager();
 
         //propiedades del juego
         this.score = 0;
@@ -39,8 +40,8 @@ export class GameManager {
         //objetos en pantalla
         this.inGameObjs = [];
 
-        //por defecto inicia la musica
-        //this.audioManager.music.play();
+        //inicia la musica del juego
+        this.audioManager.game_theme.play();
 
     }
 

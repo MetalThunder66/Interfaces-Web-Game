@@ -1,6 +1,11 @@
+import { AudioManager } from "../AudioManager.js";
+
 export class Menu {
 
     constructor() {
+        //variable para los sonidos y musica del menu
+        this.menuSounds = new AudioManager();
+
         //captura de menu principal y secundario
         this.mainMenu = document.getElementById('main-menu');
         this.comoJugar = document.querySelector('.como-jugar');
@@ -11,14 +16,26 @@ export class Menu {
         this.gameOverMenu = document.getElementById('end-game');
         this.volverMenuBtn = document.getElementById('volver-btn');
         this.juegoNuevoBtn = document.getElementById('juego-nuevo-btn');
-        this.playerScore = document.querySelector('.score-game-over');
+        //this.playerScore = document.querySelector('.score-game-over');
         
         //events listeners
         this.controlsBtn.addEventListener('click', this.showHideControls.bind(this));
+        
+        this.controlsBtn.addEventListener('mouseover', () => {
+            this.menuSounds.buttonHover.play(); //reproduce sonido cuando el mouse pasa sobre el boton
+        });
+
         this.volverMenuBtn.addEventListener('click', this.backToMainMenu.bind(this));
+
+        this.volverMenuBtn.addEventListener('mouseover', () => {
+            this.menuSounds.buttonHover.play();
+        });
+
     }
 
     showHideControls(){ //si aprieto en controles, oculto las instrucciones de como jugar y muestro los controles
+        this.menuSounds.buttonSound.play(); //reproduzco el sonido al apretar un boton
+
         if (this.controlsBtn.innerHTML == 'Controles'){
             //oculto instrucciones
             this.comoJugar.classList.replace('show', 'hide');
@@ -44,6 +61,10 @@ export class Menu {
     }
 
     backToMainMenu(){
+        //reproduzco sonido de boton y el theme del menu
+        this.menuSounds.buttonSound.play();
+        
+
         this.gameOverMenu.style.zIndex = '4';
         this.gameOverMenu.classList.replace('show', 'hide'); 
         this.mainMenu.classList.replace('hide', 'show');   
