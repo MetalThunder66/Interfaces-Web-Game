@@ -276,12 +276,17 @@ export class GameManager {
                             (this.runner.getState() == "corriendo") */) { //si el objeto con el que interacciono es enemigo, ejecuto el siguiente bloque 
 
                             INGAME_OBJECT.effect(this.runner);    //ejecuta la accion sobre el character
-                            this.audioManager.damage.play();
 
                             if (!this.runner.getShieldStatus()) { //si no tiene escudo activado
+                                this.audioManager.damage.play();
+                                
+                                setTimeout(() => {
+                                    this.audioManager.dmg_cooldown.play();
+                                }, 500); 
+
                                 this.runner.activateDamageCooldown(); //activa cooldown de danio
 
-                                setTimeout((e) => {
+                                setTimeout(() => {
                                     this.runner.deactivateDamageCooldown();
                                     console.log('cooldown finalizado ')
                                 }, 2500); //desactiva el cooldown de danio pasado este lapso de tiempo

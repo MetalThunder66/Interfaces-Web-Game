@@ -10,6 +10,7 @@ export class AudioManager {
         this.explode = this.createAudio("../sounds/explode.wav", 0.8);
         this.jump = this.createAudio("../sounds/jump.wav", 0.8); 
         this.meat_bite = this.createAudio("../sounds/meat-bite.wav", 0.8); 
+        this.dmg_cooldown = this.createAudio("../sounds/damage-cooldown.mp3", 0.8);
         
         //sonidos de powerups
         this.shield_powerup = this.createAudio("../sounds/shield-powerup.wav", 0.8);
